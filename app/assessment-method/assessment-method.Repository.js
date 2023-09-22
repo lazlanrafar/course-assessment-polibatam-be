@@ -25,4 +25,12 @@ module.exports = {
       data,
     });
   },
+  UpdateAssessmentMethod: async (id, data) => {
+    await prisma.tbm_assessment_method.update({
+      where: {
+        id,
+      },
+      data,
+    });
+  },
 };

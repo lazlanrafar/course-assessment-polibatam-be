@@ -1,5 +1,10 @@
 const { InternalServerError, Ok } = require("../../utils/http-response");
-const { FetchAssessmentMethod, StoreAssessmentMethod, FetchAssessmentMethodById } = require("./assessment-method.Repository");
+const {
+  FetchAssessmentMethod,
+  StoreAssessmentMethod,
+  FetchAssessmentMethodById,
+  UpdateAssessmentMethod,
+} = require("./assessment-method.Repository");
 
 module.exports = {
   GetAssessmentMethod: async (req, res) => {
@@ -30,6 +35,18 @@ module.exports = {
       return Ok(res, {}, "Successfully create assessment method");
     } catch (error) {
       return InternalServerError(res, error, "Failed to create assessment method");
+    }
+  },
+  EditAssessmentMethod: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const body = req.body;
+
+      await UpdateAssessmentMethod(id, body);
+
+      return Ok(res, {}, "Successfully edit assessment method");
+    } catch (error) {
+      return InternalServerError(res, error, "Failed to edit assessment method");
     }
   },
 };
