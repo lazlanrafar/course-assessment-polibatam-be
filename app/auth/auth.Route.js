@@ -1,8 +1,8 @@
+const { Login } = require("./auth.Controller");
+
 const express = require("express");
 const router = express.Router();
 
-router.post("/login", async (req, res) => {
-  res.json({ message: "Login" });
-});
+router.post("/login", Login);
 
 module.exports = router;
