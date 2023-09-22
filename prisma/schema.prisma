@@ -39,7 +39,7 @@ model tbm_rubrik {
   cdio_syllabus    tbm_cdio_syllabus? @relation(fields: [id_cdio_syllabus], references: [id])
 }
 
-model tbm_so {
+model tbm_student_outcome {
   id         String    @id @default(uuid())
   code       String?   @default("")
   title      String?   @default("")
