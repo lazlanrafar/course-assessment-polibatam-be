@@ -2,11 +2,15 @@ const { AuthToken } = require("../shared/middleware.shared");
 
 const authRoute = require("../app/auth/auth.Route");
 
+// SETUP ROUTES
 const assessmentMethodRoute = require("../app/assessment-method/assessment-method.Route");
 const rubrikRoute = require("../app/rubrik/rubrik.Route");
 const studentOutcomeRoute = require("../app/student-outcome/student-outcome.Route");
 const studentOutcomeLevelRoute = require("../app/student-outcome-level/student-outcome-level.Route");
 const programStudiRoute = require("../app/program-studi/program-studi.Route");
+
+// UTILITY ROUTES
+const userManagementRoute = require("../app/user-management/user-management.Route");
 
 module.exports = function (app) {
   const apiVersion = process.env.API_VERSION || "v1";
@@ -20,6 +24,9 @@ module.exports = function (app) {
   app.use(`${preRoute}/student-outcome`, AuthToken, studentOutcomeRoute);
   app.use(`${preRoute}/student-outcome-level`, AuthToken, studentOutcomeLevelRoute);
   app.use(`${preRoute}/program-studi`, AuthToken, programStudiRoute);
+
+  // UTILITY ROUTES
+  app.use(`${preRoute}/user-management`, AuthToken, userManagementRoute);
 
   app.get(`${preRoute}/whois`, AuthToken, (req, res) => {
     res.json({ user: req.user });
