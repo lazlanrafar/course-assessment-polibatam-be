@@ -41,7 +41,7 @@ model tbm_rubrik {
 
 model tbm_student_outcome {
   id         String    @id @default(uuid())
-  code       String?   @default("")
+  code       String    @unique
   title      String?   @default("")
   created_at DateTime? @default(now())
   updated_at DateTime? @updatedAt

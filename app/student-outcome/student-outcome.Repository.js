@@ -10,8 +10,13 @@ module.exports = {
         title: true,
       },
       orderBy: {
-        created_at: "desc",
+        code: "asc",
       },
+    });
+  },
+  StoreStudentOutcome: async (data) => {
+    return await prisma.tbm_student_outcome.create({
+      data,
     });
   },
 };
