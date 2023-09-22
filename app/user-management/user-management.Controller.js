@@ -49,4 +49,22 @@ module.exports = {
       return InternalServerError(res, error, "Failed to fetch all pegawai");
     }
   },
+  GetPegawaiByNIP: async (req, res) => {
+    try {
+      const token = await FetchPolibatam({
+        act: "GetToken",
+        secretkey: req.secretkey,
+      });
+
+      const result = await FetchPolibatam({
+        act: "GetDataByID",
+        token: token.data.data.token,
+        filter: `nip=${req.params.nip}`,
+      });
+
+      return Ok(res, result.data.data[0], "Successfull to fetch pegawai by NIP");
+    } catch (error) {
+      return InternalServerError(res, error, "Failed to fetch pegawai by NIP");
+    }
+  },
 };
