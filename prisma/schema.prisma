@@ -19,33 +19,45 @@ model tbm_user {
 // ====================================================
 
 model tbm_cdio_syllabus {
-  id     String       @id @default(uuid())
-  level  Decimal?
-  title  String?      @default("")
-  rubrik tbm_rubrik[]
+  id    String   @id @default(uuid())
+  level Decimal?
+  title String?  @default("")
+
+  created_at DateTime?    @default(now())
+  updated_at DateTime?    @updatedAt
+  rubrik     tbm_rubrik[]
 }
 
 model tbm_rubrik {
-  id               String             @id @default(uuid())
-  level            Decimal?
-  title            String?            @default("")
+  id    String   @id @default(uuid())
+  level Decimal?
+  title String?  @default("")
+
+  created_at       DateTime?          @default(now())
+  updated_at       DateTime?          @updatedAt
   id_cdio_syllabus String?
   cdio_syllabus    tbm_cdio_syllabus? @relation(fields: [id_cdio_syllabus], references: [id])
 }
 
 model tbm_so {
-  id    String  @id @default(uuid())
-  code  String? @default("")
-  title String? @default("")
+  id         String    @id @default(uuid())
+  code       String?   @default("")
+  title      String?   @default("")
+  created_at DateTime? @default(now())
+  updated_at DateTime? @updatedAt
 }
 
 model tbm_so_level {
-  id    String   @id @default(uuid())
-  level Decimal?
-  title String?  @default("")
+  id         String    @id @default(uuid())
+  level      Decimal?
+  title      String?   @default("")
+  created_at DateTime? @default(now())
+  updated_at DateTime? @updatedAt
 }
 
 model tbm_assessment_method {
-  id    String  @id @default(uuid())
-  title String? @default("")
+  id         String    @id @default(uuid())
+  title      String?   @default("")
+  created_at DateTime? @default(now())
+  updated_at DateTime? @updatedAt
 }
