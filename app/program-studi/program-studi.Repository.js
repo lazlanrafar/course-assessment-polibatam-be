@@ -20,6 +20,13 @@ module.exports = {
       },
     });
   },
+  FetchProgramStudiById: async (id) => {
+    return await prisma.tbm_program_studi.findUnique({
+      where: {
+        id: id,
+      },
+    });
+  },
   FetchJurusan: async () => {
     return await prisma.tbm_jurusan.findMany({
       select: {
