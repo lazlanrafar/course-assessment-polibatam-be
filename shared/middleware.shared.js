@@ -1,4 +1,4 @@
-const { FetchUserById } = require("../app/user/user.repository");
+const { FetchPolibatam } = require("../utils/fetch-polibatam");
 const { Unauthorized } = require("../utils/http-response");
 const { DecryptToken } = require("../utils/jwt");
 
@@ -11,11 +11,23 @@ module.exports = {
 
     try {
       const deCode = DecryptToken(token);
-      const user = await FetchUserById(deCode.id);
+      const user = await FetchPolibatam({
+        act: "GetBiodata",
+        secretkey: deCode.secretkey,
+      });
 
-      if (!user) return Unauthorized(res, {}, "Unauthorized");
+      if (user.data.error_code !== 0) {
+        return Unauthorized(res, {}, "Unauthorized");
+      }
 
-      req.user = user;
+      // const isAdmin = (await FetchIsAdmin(user.data.data.id)) ? true : false;
+
+      req.user = {
+        ...user.data.data,
+        // isAdmin,
+      };
+      req.secretkey = deCode.secretkey;
+
       next();
     } catch (error) {
       return Unauthorized(res, {}, "Unauthorized");

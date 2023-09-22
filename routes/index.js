@@ -1,4 +1,4 @@
-// const { AuthToken } = require("../shared/middleware.shared");
+const { AuthToken } = require("../shared/middleware.shared");
 
 const authRoute = require("../app/auth/auth.Route");
 // const userRoute = require("../app/user/user.route");
@@ -13,10 +13,10 @@ module.exports = function (app) {
   app.use(`${preRoute}/`, authRoute);
   // app.use(`${preRoute}/user`, userRoute);
 
-  app.use(`${preRoute}/rubrik`, rubrikRoute);
-  app.use(`${preRoute}/student-outcome`, studentOutcomeRoute);
+  app.use(`${preRoute}/rubrik`, AuthToken, rubrikRoute);
+  app.use(`${preRoute}/student-outcome`, AuthToken, studentOutcomeRoute);
 
-  // app.get(`${preRoute}/whois`, AuthToken, (req, res) => {
-  //   res.json({ user: req.user });
-  // });
+  app.get(`${preRoute}/whois`, AuthToken, (req, res) => {
+    res.json({ user: req.user });
+  });
 };
