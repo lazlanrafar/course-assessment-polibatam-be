@@ -20,4 +20,16 @@ module.exports = {
       },
     });
   },
+  FetchCDIOSyllabus: async () => {
+    return await prisma.tbm_cdio_syllabus.findMany({
+      select: {
+        id: true,
+        level: true,
+        title: true,
+      },
+      orderBy: {
+        level: "asc",
+      },
+    });
+  },
 };
