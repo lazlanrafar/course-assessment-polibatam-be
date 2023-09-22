@@ -14,6 +14,13 @@ module.exports = {
       },
     });
   },
+  FetchStudentOutcomeById: async (id) => {
+    return await prisma.tbm_student_outcome.findUnique({
+      where: {
+        id,
+      },
+    });
+  },
   StoreStudentOutcome: async (data) => {
     return await prisma.tbm_student_outcome.create({
       data,
