@@ -1,4 +1,5 @@
 DATABASE_URL="postgresql://postgres:Pass1234@localhost:5432/db-template-express-prisma?schema=public"
+API_POLIBATAM_URL="https://sid.polibatam.ac.id/api/v1.php"
 
 API_PORT=3000
 API_VERSION=v1
