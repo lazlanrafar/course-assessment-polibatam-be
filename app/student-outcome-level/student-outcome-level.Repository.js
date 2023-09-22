@@ -15,4 +15,9 @@ module.exports = {
       },
     });
   },
+  StoreStudentOutcomeLevel: async (data) => {
+    await prisma.tbm_student_outcome_level.create({
+      data,
+    });
+  },
 };
