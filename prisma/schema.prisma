@@ -20,7 +20,7 @@ model tbm_user {
 
 model tbm_cdio_syllabus {
   id    String   @id @default(uuid())
-  level Decimal?
+  level Decimal? @db.Decimal(2, 1)
   title String?  @default("")
 
   created_at DateTime?    @default(now())
@@ -30,7 +30,7 @@ model tbm_cdio_syllabus {
 
 model tbm_rubrik {
   id    String   @id @default(uuid())
-  level Decimal?
+  level Decimal? @db.Decimal(2, 1)
   title String?  @default("")
 
   created_at       DateTime?          @default(now())

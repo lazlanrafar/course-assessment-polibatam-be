@@ -4,6 +4,7 @@ const authRoute = require("../app/auth/auth.Route");
 // const userRoute = require("../app/user/user.route");
 
 const rubrikRoute = require("../app/rubrik/rubrik.Route");
+const studentOutcomeRoute = require("../app/student-outcome/student-outcome.Route");
 
 module.exports = function (app) {
   const apiVersion = process.env.API_VERSION || "v1";
@@ -13,6 +14,7 @@ module.exports = function (app) {
   // app.use(`${preRoute}/user`, userRoute);
 
   app.use(`${preRoute}/rubrik`, rubrikRoute);
+  app.use(`${preRoute}/student-outcome`, studentOutcomeRoute);
 
   // app.get(`${preRoute}/whois`, AuthToken, (req, res) => {
   //   res.json({ user: req.user });
