@@ -13,4 +13,9 @@ module.exports = {
       },
     });
   },
+  StoreAssessmentMethod: async (data) => {
+    await prisma.tbm_assessment_method.create({
+      data,
+    });
+  },
 };
