@@ -60,3 +60,20 @@ model tbm_assessment_method {
   created_at DateTime? @default(now())
   updated_at DateTime? @updatedAt
 }
+
+model tbm_jurusan {
+  id            String              @id @default(uuid())
+  title         String?             @default("")
+  created_at    DateTime?           @default(now())
+  updated_at    DateTime?           @updatedAt
+  program_studi tbm_program_studi[]
+}
+
+model tbm_program_studi {
+  id         String      @id @default(uuid())
+  title      String?     @default("")
+  created_at DateTime?   @default(now())
+  updated_at DateTime?   @updatedAt
+  id_jurusan String
+  jurusan    tbm_jurusan @relation(fields: [id_jurusan], references: [id])
+}
