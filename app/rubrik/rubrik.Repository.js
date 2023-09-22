@@ -20,6 +20,13 @@ module.exports = {
       },
     });
   },
+  FetchRubrikById: async (id) => {
+    return await prisma.tbm_rubrik.findUnique({
+      where: {
+        id: id,
+      },
+    });
+  },
   FetchCDIOSyllabus: async () => {
     return await prisma.tbm_cdio_syllabus.findMany({
       select: {

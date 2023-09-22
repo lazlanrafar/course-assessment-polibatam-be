@@ -1,5 +1,5 @@
 const { InternalServerError, Ok } = require("../../utils/http-response");
-const { FetchRubrik, FetchCDIOSyllabus, StoreRubrik } = require("./rubrik.Repository");
+const { FetchRubrik, FetchCDIOSyllabus, StoreRubrik, FetchRubrikById } = require("./rubrik.Repository");
 
 module.exports = {
   GetRubrik: async (req, res) => {
@@ -13,6 +13,16 @@ module.exports = {
       return Ok(res, result, "Successfully get rubrik");
     } catch (error) {
       return InternalServerError(res, error, "Failed to get rubrik");
+    }
+  },
+  GetRubrikById: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const result = await FetchRubrikById(id);
+
+      return Ok(res, result, "Successfully get rubrik detail");
+    } catch (error) {
+      return InternalServerError(res, error, "Failed to get rubrik detail");
     }
   },
   GetCDIOSyllabus: async (req, res) => {
