@@ -1,5 +1,10 @@
 const { InternalServerError, Ok } = require("../../utils/http-response");
-const { FetchStudentOutcome, StoreStudentOutcome, FetchStudentOutcomeById } = require("./student-outcome.Repository");
+const {
+  FetchStudentOutcome,
+  StoreStudentOutcome,
+  FetchStudentOutcomeById,
+  UpdateStudentOutcome,
+} = require("./student-outcome.Repository");
 
 module.exports = {
   GetStudentOutcome: async (req, res) => {
@@ -30,6 +35,18 @@ module.exports = {
       return Ok(res, {}, "Successfully create student outcome");
     } catch (error) {
       return InternalServerError(res, error, "Failed to create student outcome");
+    }
+  },
+  EditStudentOutcome: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const body = req.body;
+
+      await UpdateStudentOutcome(id, body);
+
+      return Ok(res, {}, "Successfully edit student outcome");
+    } catch (error) {
+      return InternalServerError(res, error, "Failed to edit student outcome");
     }
   },
 };
