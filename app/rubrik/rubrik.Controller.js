@@ -1,5 +1,5 @@
 const { InternalServerError, Ok } = require("../../utils/http-response");
-const { FetchRubrik, FetchCDIOSyllabus } = require("./rubrik.Repository");
+const { FetchRubrik, FetchCDIOSyllabus, StoreRubrik } = require("./rubrik.Repository");
 
 module.exports = {
   GetRubrik: async (req, res) => {
@@ -22,6 +22,17 @@ module.exports = {
       return Ok(res, result, "Successfully get cdio syllabus");
     } catch (error) {
       return InternalServerError(res, error, "Failed to get cdio syllabus");
+    }
+  },
+  CreateRubrik: async (req, res) => {
+    try {
+      const body = req.body;
+
+      const result = await StoreRubrik(body);
+
+      return Ok(res, result, "Successfully create rubrik");
+    } catch (error) {
+      return InternalServerError(res, error, "Failed to create rubrik");
     }
   },
 };
