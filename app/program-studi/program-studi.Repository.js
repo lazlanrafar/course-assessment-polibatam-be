@@ -43,4 +43,12 @@ module.exports = {
       data: data,
     });
   },
+  UpdateProgramStudi: async (id, data) => {
+    return await prisma.tbm_program_studi.update({
+      where: {
+        id: id,
+      },
+      data: data,
+    });
+  },
 };

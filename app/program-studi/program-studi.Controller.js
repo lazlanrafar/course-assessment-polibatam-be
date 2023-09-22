@@ -1,5 +1,11 @@
 const { InternalServerError, Ok } = require("../../utils/http-response");
-const { FetchProgramStudi, FetchJurusan, StoreProgramStudi, FetchProgramStudiById } = require("./program-studi.Repository");
+const {
+  FetchProgramStudi,
+  FetchJurusan,
+  StoreProgramStudi,
+  FetchProgramStudiById,
+  UpdateProgramStudi,
+} = require("./program-studi.Repository");
 
 module.exports = {
   GetProgramStudi: async (req, res) => {
@@ -40,6 +46,18 @@ module.exports = {
     } catch (error) {
       //   console.log(error);
       return InternalServerError(res, error, "Failed to create program studi");
+    }
+  },
+  EditProgramStudi: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const body = req.body;
+
+      const result = await UpdateProgramStudi(id, body);
+
+      return Ok(res, result, "Successfully edit program studi");
+    } catch (error) {
+      return InternalServerError(res, error, "Failed to edit program studi");
     }
   },
 };
