@@ -19,4 +19,34 @@ module.exports = {
       return InternalServerError(res, error, "Failed to fetch all unit");
     }
   },
+  GetPegawai: async (req, res) => {
+    try {
+      const { unit } = req.query;
+
+      const token = await FetchPolibatam({
+        act: "GetToken",
+        secretkey: req.secretkey,
+      });
+
+      const result = await FetchPolibatam({
+        act: "GetSemuaPegawai",
+        token: token.data.data.token,
+        filter: `unit=${unit}`,
+      });
+
+      let data = result.data.data;
+      // for (const iterator of result.data.data) {
+      //   let isAdmin = iterator.NIP ? await FetchIsAdmin(iterator.NIP) : false;
+
+      //   data.push({
+      //     ...iterator,
+      //     isAdmin: isAdmin ? true : false,
+      //   });
+      // }
+
+      return Ok(res, data, "Successfull to fetch all pegawai");
+    } catch (error) {
+      return InternalServerError(res, error, "Failed to fetch all pegawai");
+    }
+  },
 };
