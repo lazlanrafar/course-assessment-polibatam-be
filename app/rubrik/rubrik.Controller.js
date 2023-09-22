@@ -1,5 +1,5 @@
 const { InternalServerError, Ok } = require("../../utils/http-response");
-const { FetchRubrik, FetchCDIOSyllabus, StoreRubrik, FetchRubrikById } = require("./rubrik.Repository");
+const { FetchRubrik, FetchCDIOSyllabus, StoreRubrik, FetchRubrikById, UpdateRubrik } = require("./rubrik.Repository");
 
 module.exports = {
   GetRubrik: async (req, res) => {
@@ -43,6 +43,18 @@ module.exports = {
       return Ok(res, result, "Successfully create rubrik");
     } catch (error) {
       return InternalServerError(res, error, "Failed to create rubrik");
+    }
+  },
+  EditRubrik: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const body = req.body;
+
+      const result = await UpdateRubrik(id, body);
+
+      return Ok(res, result, "Successfully edit rubrik");
+    } catch (error) {
+      return InternalServerError(res, error, "Failed to edit rubrik");
     }
   },
 };

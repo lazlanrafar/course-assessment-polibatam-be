@@ -44,4 +44,12 @@ module.exports = {
       data: data,
     });
   },
+  UpdateRubrik: async (id, data) => {
+    return await prisma.tbm_rubrik.update({
+      where: {
+        id: id,
+      },
+      data: data,
+    });
+  },
 };

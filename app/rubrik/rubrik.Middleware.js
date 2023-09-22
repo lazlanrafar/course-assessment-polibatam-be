@@ -1,7 +1,7 @@
 const { InternalServerError } = require("../../utils/http-response");
 
 module.exports = {
-  CreateRubrikMiddleware: (req, res, next) => {
+  FormRubrikMiddleware: (req, res, next) => {
     try {
       req.body.level = parseFloat(req.body.level);
 
