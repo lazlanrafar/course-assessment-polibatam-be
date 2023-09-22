@@ -11,9 +11,41 @@ datasource db {
 }
 
 model tbm_user {
-  id         Int      @id @default(autoincrement())
-  email      String   @unique
-  password   String
-  created_at DateTime @default(now())
-  updated_at DateTime @default(now())
+  uid String @unique
+}
+
+// ====================================================
+// DATA SETUP
+// ====================================================
+
+model tbm_cdio_syllabus {
+  id     String       @id @default(uuid())
+  level  Decimal?
+  title  String?      @default("")
+  rubrik tbm_rubrik[]
+}
+
+model tbm_rubrik {
+  id               String             @id @default(uuid())
+  level            Decimal?
+  title            String?            @default("")
+  id_cdio_syllabus String?
+  cdio_syllabus    tbm_cdio_syllabus? @relation(fields: [id_cdio_syllabus], references: [id])
+}
+
+model tbm_so {
+  id    String  @id @default(uuid())
+  code  String? @default("")
+  title String? @default("")
+}
+
+model tbm_so_level {
+  id    String   @id @default(uuid())
+  level Decimal?
+  title String?  @default("")
+}
+
+model tbm_assessment_method {
+  id    String  @id @default(uuid())
+  title String? @default("")
 }
