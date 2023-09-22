@@ -14,7 +14,9 @@ module.exports = {
         },
       },
       orderBy: {
-        title: "asc",
+        jurusan: {
+          title: "asc",
+        },
       },
     });
   },
@@ -27,6 +29,11 @@ module.exports = {
       orderBy: {
         title: "asc",
       },
+    });
+  },
+  StoreProgramStudi: async (data) => {
+    return await prisma.tbm_program_studi.create({
+      data: data,
     });
   },
 };
