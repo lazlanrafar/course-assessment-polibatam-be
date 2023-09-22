@@ -13,6 +13,13 @@ module.exports = {
       },
     });
   },
+  FetchAssessmentMethodById: async (id) => {
+    return await prisma.tbm_assessment_method.findUnique({
+      where: {
+        id,
+      },
+    });
+  },
   StoreAssessmentMethod: async (data) => {
     await prisma.tbm_assessment_method.create({
       data,
