@@ -49,7 +49,7 @@ model tbm_student_outcome {
 
 model tbm_student_outcome_level {
   id          String    @id @default(uuid())
-  level       Decimal?  @db.Decimal(2, 1)
+  level       Decimal?  @unique @db.Decimal(2, 1)
   title       String?   @default("")
   description String?   @default("")
   created_at  DateTime? @default(now())
