@@ -19,20 +19,18 @@ model tbm_user {
 // ====================================================
 
 model tbm_cdio_syllabus {
-  id    String   @id @default(uuid())
-  level Decimal? @db.Decimal(2, 1)
-  title String?  @default("")
-
+  id         String       @id @default(uuid())
+  level      Decimal?     @db.Decimal(2, 1)
+  title      String?      @default("")
   created_at DateTime?    @default(now())
   updated_at DateTime?    @updatedAt
   rubrik     tbm_rubrik[]
 }
 
 model tbm_rubrik {
-  id    String   @id @default(uuid())
-  level Decimal? @db.Decimal(2, 1)
-  title String?  @default("")
-
+  id               String             @id @default(uuid())
+  level            Decimal?           @db.Decimal(2, 1)
+  title            String?            @default("")
   created_at       DateTime?          @default(now())
   updated_at       DateTime?          @updatedAt
   id_cdio_syllabus String?

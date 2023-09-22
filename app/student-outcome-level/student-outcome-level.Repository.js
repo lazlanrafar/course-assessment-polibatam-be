@@ -27,4 +27,12 @@ module.exports = {
       data,
     });
   },
+  UpdateStudentOutcomeLevel: async (id, data) => {
+    await prisma.tbm_student_outcome_level.update({
+      where: {
+        id,
+      },
+      data,
+    });
+  },
 };
