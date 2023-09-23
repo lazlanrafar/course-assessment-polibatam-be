@@ -1,4 +1,4 @@
-const { CreateCourse, GetCourse, GetCourseById } = require("./course.Controller");
+const { CreateCourse, GetCourse, GetCourseById, EditCourse } = require("./course.Controller");
 const { FormCourseMiddleware } = require("./course.Middleware");
 
 const express = require("express");
@@ -8,5 +8,7 @@ router.get("/", GetCourse);
 router.get("/:id", GetCourseById);
 
 router.post("/", FormCourseMiddleware, CreateCourse);
+
+router.put("/:id", FormCourseMiddleware, EditCourse);
 
 module.exports = router;

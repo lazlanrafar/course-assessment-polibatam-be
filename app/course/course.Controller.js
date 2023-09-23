@@ -1,5 +1,5 @@
 const { InternalServerError, Ok } = require("../../utils/http-response");
-const { StoreCourse, FetchCourse, FetchCourseById } = require("./course.Repository");
+const { StoreCourse, FetchCourse, FetchCourseById, UpdateCourse } = require("./course.Repository");
 
 module.exports = {
   GetCourse: async (req, res) => {
@@ -29,7 +29,18 @@ module.exports = {
 
       return Ok(res, {}, "Course created successfully!");
     } catch (error) {
-      console.log(error);
+      return InternalServerError(res, error, "Something went wrong!");
+    }
+  },
+  EditCourse: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const body = req.body;
+
+      await UpdateCourse(id, body);
+
+      return Ok(res, {}, "Course updated successfully!");
+    } catch (error) {
       return InternalServerError(res, error, "Something went wrong!");
     }
   },

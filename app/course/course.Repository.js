@@ -42,4 +42,12 @@ module.exports = {
       data,
     });
   },
+  UpdateCourse: async (id, data) => {
+    return await prisma.tbl_course.update({
+      where: {
+        id,
+      },
+      data,
+    });
+  },
 };
