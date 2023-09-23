@@ -1,7 +1,16 @@
 const { InternalServerError, Ok } = require("../../utils/http-response");
-const { StoreCourse } = require("./course.Repository");
+const { StoreCourse, FetchCourse } = require("./course.Repository");
 
 module.exports = {
+  GetCourse: async (req, res) => {
+    try {
+      const result = await FetchCourse();
+
+      return Ok(res, result, "Successfully get course");
+    } catch (error) {
+      return InternalServerError(res, error, "Failed to get course");
+    }
+  },
   CreateCourse: async (req, res) => {
     try {
       const body = req.body;
