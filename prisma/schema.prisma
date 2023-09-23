@@ -18,23 +18,23 @@ model tbm_user {
 // DATA SETUP
 // ====================================================
 
-model tbm_cdio_syllabus {
-  id         String       @id @default(uuid())
-  level      Decimal?     @db.Decimal(2, 1)
-  title      String?      @default("")
-  created_at DateTime?    @default(now())
-  updated_at DateTime?    @updatedAt
-  rubrik     tbm_rubrik[]
+model tbm_cdio_syllabus_parent {
+  id            String              @id @default(uuid())
+  level         Decimal?            @db.Decimal(2, 1)
+  title         String?             @default("")
+  created_at    DateTime?           @default(now())
+  updated_at    DateTime?           @updatedAt
+  cdio_syllabus tbm_cdio_syllabus[]
 }
 
-model tbm_rubrik {
-  id               String             @id @default(uuid())
-  level            Decimal?           @db.Decimal(2, 1)
-  title            String?            @default("")
-  created_at       DateTime?          @default(now())
-  updated_at       DateTime?          @updatedAt
-  id_cdio_syllabus String?
-  cdio_syllabus    tbm_cdio_syllabus? @relation(fields: [id_cdio_syllabus], references: [id])
+model tbm_cdio_syllabus {
+  id                      String                    @id @default(uuid())
+  level                   Decimal?                  @db.Decimal(2, 1)
+  title                   String?                   @default("")
+  created_at              DateTime?                 @default(now())
+  updated_at              DateTime?                 @updatedAt
+  id_cdio_syllabus_parent String?
+  cdio_syllabus_parent    tbm_cdio_syllabus_parent? @relation(fields: [id_cdio_syllabus_parent], references: [id])
 }
 
 model tbm_student_outcome {

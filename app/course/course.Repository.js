@@ -28,6 +28,13 @@ module.exports = {
       where: {
         id,
       },
+      include: {
+        program_studi: {
+          select: {
+            title: true,
+          },
+        },
+      },
     });
   },
   FetchCourseByCode: async (code) => {
