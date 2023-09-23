@@ -38,6 +38,7 @@ module.exports = {
 
       req.body.target_level = parseInt(req.body.target_level);
 
+      delete req.body.bobot_total;
       next();
     } catch (error) {
       return InternalServerError(res, error, "Something went wrong!, in Middleware");
