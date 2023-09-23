@@ -2,6 +2,8 @@ const { AuthToken } = require("../shared/middleware.shared");
 
 const authRoute = require("../app/auth/auth.Route");
 
+const courseRoute = require("../app/course/course.Route");
+
 // SETUP ROUTES
 const assessmentMethodRoute = require("../app/assessment-method/assessment-method.Route");
 const rubrikRoute = require("../app/rubrik/rubrik.Route");
@@ -17,6 +19,8 @@ module.exports = function (app) {
   const preRoute = `/api/${apiVersion}`;
 
   app.use(`${preRoute}/`, authRoute);
+
+  app.use(`${preRoute}/course`, AuthToken, courseRoute);
 
   // SETUP ROUTES
   app.use(`${preRoute}/assessment-method`, AuthToken, assessmentMethodRoute);
