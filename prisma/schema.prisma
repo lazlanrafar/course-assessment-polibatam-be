@@ -84,22 +84,23 @@ model tbm_program_studi {
 }
 
 model tbm_rubrik {
-  id                 String              @id @default(uuid())
-  id_program_studi   String
-  id_student_outcome String
-  id_cdio_syllabus   String
-  code               String?
-  title              String?
-  desc_level_1       String?             @default("-")
-  desc_level_2       String?             @default("-")
-  desc_level_3       String?             @default("-")
-  desc_level_4       String?             @default("-")
-  desc_level_5       String?             @default("-")
-  program_studi      tbm_program_studi   @relation(fields: [id_program_studi], references: [id])
-  student_outcome    tbm_student_outcome @relation(fields: [id_student_outcome], references: [id])
-  cdio_syllabus      tbm_cdio_syllabus   @relation(fields: [id_cdio_syllabus], references: [id])
-  created_at         DateTime?           @default(now())
-  updated_at         DateTime?           @updatedAt
+  id                      String                        @id @default(uuid())
+  id_program_studi        String
+  id_student_outcome      String
+  id_cdio_syllabus        String
+  code                    String?
+  title                   String?
+  desc_level_1            String?                       @default("-")
+  desc_level_2            String?                       @default("-")
+  desc_level_3            String?                       @default("-")
+  desc_level_4            String?                       @default("-")
+  desc_level_5            String?                       @default("-")
+  program_studi           tbm_program_studi             @relation(fields: [id_program_studi], references: [id])
+  student_outcome         tbm_student_outcome           @relation(fields: [id_student_outcome], references: [id])
+  cdio_syllabus           tbm_cdio_syllabus             @relation(fields: [id_cdio_syllabus], references: [id])
+  created_at              DateTime?                     @default(now())
+  updated_at              DateTime?                     @updatedAt
+  course_learning_outcome tbl_course_learning_outcome[]
 }
 
 // ====================================================
@@ -131,10 +132,13 @@ model tbl_course {
 
 model tbl_course_learning_outcome {
   id                   String                @id @default(uuid())
-  title                String?               @default("")
   id_course            String
+  id_rubrik            String?
   id_assessment_method String
+  code                 String?               @default("")
+  title                String?               @default("")
   course               tbl_course            @relation(fields: [id_course], references: [id])
+  rubrik               tbm_rubrik?           @relation(fields: [id_rubrik], references: [id])
   assessment_method    tbm_assessment_method @relation(fields: [id_assessment_method], references: [id])
   created_at           DateTime?             @default(now())
   updated_at           DateTime?             @updatedAt

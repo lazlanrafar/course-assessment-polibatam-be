@@ -19,6 +19,9 @@ module.exports = {
           },
         },
       },
+      orderBy: {
+        code: "asc",
+      },
     });
   },
   FetchRubrikById: async (id) => {
