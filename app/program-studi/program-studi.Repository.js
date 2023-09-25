@@ -12,6 +12,11 @@ module.exports = {
             title: true,
           },
         },
+        _count: {
+          select: {
+            rubrik: true,
+          },
+        },
       },
       orderBy: {
         jurusan: {
