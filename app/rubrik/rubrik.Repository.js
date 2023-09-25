@@ -9,4 +9,9 @@ module.exports = {
       },
     });
   },
+  StoreRubrik: async (data) => {
+    return await prisma.tbm_rubrik.create({
+      data: data,
+    });
+  },
 };

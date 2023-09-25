@@ -14,6 +14,7 @@ module.exports = {
 
       result.forEach((item) => {
         item.parent = `${item.cdio_syllabus_parent.level}. ${item.cdio_syllabus_parent.title}`;
+        item.label = `${item.level}. ${item.title}`;
       });
 
       return Ok(res, result, "Successfully get CDIO Syllabus");

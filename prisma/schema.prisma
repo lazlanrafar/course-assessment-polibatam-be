@@ -48,13 +48,12 @@ model tbm_student_outcome {
 }
 
 model tbm_student_outcome_level {
-  id            String              @id @default(uuid())
-  level         Decimal?            @unique @db.Decimal(2, 1)
-  title         String?             @default("")
-  description   String?             @default("")
-  created_at    DateTime?           @default(now())
-  updated_at    DateTime?           @updatedAt
-  rubrik_detail tbm_rubrik_detail[]
+  id          String    @id @default(uuid())
+  level       Decimal?  @unique @db.Decimal(2, 1)
+  title       String?   @default("")
+  description String?   @default("")
+  created_at  DateTime? @default(now())
+  updated_at  DateTime? @updatedAt
 }
 
 model tbm_assessment_method {
@@ -91,23 +90,16 @@ model tbm_rubrik {
   id_cdio_syllabus   String
   code               String?
   title              String?
+  desc_level_1       String?             @default("-")
+  desc_level_2       String?             @default("-")
+  desc_level_3       String?             @default("-")
+  desc_level_4       String?             @default("-")
+  desc_level_5       String?             @default("-")
   program_studi      tbm_program_studi   @relation(fields: [id_program_studi], references: [id])
   student_outcome    tbm_student_outcome @relation(fields: [id_student_outcome], references: [id])
   cdio_syllabus      tbm_cdio_syllabus   @relation(fields: [id_cdio_syllabus], references: [id])
   created_at         DateTime?           @default(now())
   updated_at         DateTime?           @updatedAt
-  rubrik_detail      tbm_rubrik_detail[]
-}
-
-model tbm_rubrik_detail {
-  id          String                    @id @default(uuid())
-  id_rubrik   String
-  id_level    String
-  description String?                   @default("")
-  rubrik      tbm_rubrik                @relation(fields: [id_rubrik], references: [id])
-  level       tbm_student_outcome_level @relation(fields: [id_level], references: [id])
-  created_at  DateTime?                 @default(now())
-  updated_at  DateTime?                 @updatedAt
 }
 
 // ====================================================
