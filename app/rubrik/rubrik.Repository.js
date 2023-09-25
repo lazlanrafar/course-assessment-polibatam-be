@@ -7,6 +7,18 @@ module.exports = {
       where: {
         id_program_studi,
       },
+      include: {
+        student_outcome: {
+          select: {
+            code: true,
+          },
+        },
+        cdio_syllabus: {
+          select: {
+            level: true,
+          },
+        },
+      },
     });
   },
   StoreRubrik: async (data) => {

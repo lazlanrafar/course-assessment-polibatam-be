@@ -10,6 +10,10 @@ module.exports = {
       const program_studi = await FetchProgramStudiById(id_program_studi);
       const data = await FetchRubrikByIdProgramStudi(id_program_studi);
 
+      data.forEach((item) => {
+        item.label = `${item.code}. ${item.title}`;
+      });
+
       const payload = {
         program_studi: program_studi,
         data: data,
