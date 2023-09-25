@@ -21,6 +21,13 @@ module.exports = {
       },
     });
   },
+  FetchRubrikById: async (id) => {
+    return await prisma.tbm_rubrik.findUnique({
+      where: {
+        id: id,
+      },
+    });
+  },
   StoreRubrik: async (data) => {
     return await prisma.tbm_rubrik.create({
       data: data,
