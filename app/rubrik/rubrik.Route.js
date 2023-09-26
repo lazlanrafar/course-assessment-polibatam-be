@@ -1,7 +1,16 @@
-const { GetRubrikByIdProgramStudi, CreateRubrik, GetRubrikById, EditRubrik } = require("./rubrik.Controller");
+const {
+  GetRubrikByIdProgramStudi,
+  CreateRubrik,
+  GetRubrikById,
+  EditRubrik,
+  GetRubrikListByIdCourse,
+} = require("./rubrik.Controller");
 
 const express = require("express");
 const router = express.Router();
+
+// Fetch rubrik by id course (Mata Kuliah)
+router.get("/list-by-course/:id_course", GetRubrikListByIdCourse);
 
 router.get("/program-studi/:id_program_studi", GetRubrikByIdProgramStudi);
 router.get("/:id", GetRubrikById);

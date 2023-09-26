@@ -1,6 +1,12 @@
 const { InternalServerError, Ok } = require("../../utils/http-response");
 const { FetchProgramStudiById } = require("../program-studi/program-studi.Repository");
-const { FetchRubrikByIdProgramStudi, StoreRubrik, FetchRubrikById, UpdateRubrik } = require("./rubrik.Repository");
+const {
+  FetchRubrikByIdProgramStudi,
+  StoreRubrik,
+  FetchRubrikById,
+  UpdateRubrik,
+  FetchRubrikListByIdCourse,
+} = require("./rubrik.Repository");
 
 module.exports = {
   GetRubrikByIdProgramStudi: async (req, res) => {
@@ -32,6 +38,21 @@ module.exports = {
       return Ok(res, result, "Successfully get rubrik detail");
     } catch (error) {
       return InternalServerError(res, error, "Failed to get rubrik detail");
+    }
+  },
+  GetRubrikListByIdCourse: async (req, res) => {
+    try {
+      const { id_course } = req.params;
+      const result = await FetchRubrikListByIdCourse(id_course);
+
+      result.forEach((item) => {
+        item.label = `${item.code}. ${item.title}`;
+      });
+
+      return Ok(res, result, "Successfully get rubrik list");
+    } catch (error) {
+      console.log(error);
+      return InternalServerError(res, error, "Failed to get rubrik list");
     }
   },
   CreateRubrik: async (req, res) => {

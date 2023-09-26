@@ -8,6 +8,7 @@ module.exports = {
 
       return Ok(res, result, "Successfully get course");
     } catch (error) {
+      // console.log(error);
       return InternalServerError(res, error, "Failed to get course");
     }
   },

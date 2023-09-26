@@ -31,6 +31,27 @@ module.exports = {
       },
     });
   },
+  FetchRubrikListByIdCourse: async (id_course) => {
+    return await prisma.tbm_rubrik.findMany({
+      where: {
+        program_studi: {
+          course: {
+            some: {
+              id: id_course,
+            },
+          },
+        },
+      },
+      select: {
+        id: true,
+        code: true,
+        title: true,
+      },
+      orderBy: {
+        code: "asc",
+      },
+    });
+  },
   StoreRubrik: async (data) => {
     return await prisma.tbm_rubrik.create({
       data: data,
