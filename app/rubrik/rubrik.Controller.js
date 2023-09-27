@@ -46,7 +46,10 @@ module.exports = {
       const result = await FetchRubrikListByIdCourse(id_course);
 
       result.forEach((item) => {
-        item.label = `${item.code}. ${item.title}`;
+        item.label = `${item.cdio_syllabus.level}/${item.student_outcome.code}-${item.code}`;
+
+        delete item.student_outcome;
+        delete item.cdio_syllabus;
       });
 
       return Ok(res, result, "Successfully get rubrik list");

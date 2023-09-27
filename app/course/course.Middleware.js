@@ -44,4 +44,14 @@ module.exports = {
       return InternalServerError(res, error, "Something went wrong!, in Middleware");
     }
   },
+  FormCourseLearningOutcomeMiddleware: async (req, res, next) => {
+    try {
+      const body = req.body;
+      if (body.rubrik.length === 0) return BadRequest(res, {}, "Rubrik must be filled!");
+
+      next();
+    } catch (error) {
+      return InternalServerError(res, error, "Something went wrong!, in Middleware");
+    }
+  },
 };

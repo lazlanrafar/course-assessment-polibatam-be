@@ -34,6 +34,39 @@ module.exports = {
             title: true,
           },
         },
+        course_learning_outcome: {
+          include: {
+            assessment_method: {
+              select: {
+                title: true,
+              },
+            },
+            details: {
+              select: {
+                rubrik: {
+                  select: {
+                    id: true,
+                    code: true,
+                    title: true,
+                    student_outcome: {
+                      select: {
+                        code: true,
+                      },
+                    },
+                    cdio_syllabus: {
+                      select: {
+                        level: true,
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+          orderBy: {
+            code: "asc",
+          },
+        },
       },
     });
   },
@@ -54,6 +87,16 @@ module.exports = {
       where: {
         id,
       },
+      data,
+    });
+  },
+  StoreCourseLearningOutcome: async (data) => {
+    return await prisma.tbl_course_learning_outcome.create({
+      data,
+    });
+  },
+  StoreCourseLearningOutcomeDetail: async (data) => {
+    return await prisma.tbl_course_learning_outcome_detail.create({
       data,
     });
   },

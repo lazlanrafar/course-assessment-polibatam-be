@@ -46,9 +46,21 @@ module.exports = {
         id: true,
         code: true,
         title: true,
+        cdio_syllabus: {
+          select: {
+            level: true,
+          },
+        },
+        student_outcome: {
+          select: {
+            code: true,
+          },
+        },
       },
       orderBy: {
-        code: "asc",
+        cdio_syllabus: {
+          level: "asc",
+        },
       },
     });
   },
