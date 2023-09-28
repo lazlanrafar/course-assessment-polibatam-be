@@ -143,6 +143,13 @@ module.exports = {
       data,
     });
   },
+  DestroyCourseLearningOutcome: async (id) => {
+    return await prisma.tbl_course_learning_outcome.deleteMany({
+      where: {
+        id,
+      },
+    });
+  },
   DestroyCourseLearningOutcomeDetailByIdCLO: async (id) => {
     return await prisma.tbl_course_learning_outcome_detail.deleteMany({
       where: {

@@ -9,6 +9,7 @@ const {
   FetchCourseLearningOutcomeById,
   UpdateCourseLearningOutcome,
   DestroyCourseLearningOutcomeDetailByIdCLO,
+  DestroyCourseLearningOutcome,
 } = require("./course.Repository");
 
 module.exports = {
@@ -133,6 +134,18 @@ module.exports = {
       }
 
       return Ok(res, {}, "Course learning outcome updated successfully!");
+    } catch (error) {
+      return InternalServerError(res, error, "Something went wrong!");
+    }
+  },
+  DeleteCourseLearningOutcome: async (req, res) => {
+    try {
+      const { id } = req.params;
+
+      await DestroyCourseLearningOutcomeDetailByIdCLO(id);
+      await DestroyCourseLearningOutcome(id);
+
+      return Ok(res, {}, "Course learning outcome deleted successfully!");
     } catch (error) {
       return InternalServerError(res, error, "Something went wrong!");
     }
