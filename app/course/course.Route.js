@@ -7,6 +7,7 @@ const {
   GetCourseLearningOutcomeById,
   EditCourseLearningOutcome,
   DeleteCourseLearningOutcome,
+  GetPerformanceIndicator,
 } = require("./course.Controller");
 const { FormCourseMiddleware, FormCourseLearningOutcomeMiddleware } = require("./course.Middleware");
 
@@ -15,7 +16,6 @@ const router = express.Router();
 
 router.get("/", GetCourse);
 router.get("/:id", GetCourseById);
-
 router.post("/", FormCourseMiddleware, CreateCourse);
 router.put("/:id", FormCourseMiddleware, EditCourse);
 
@@ -23,5 +23,7 @@ router.get("/clo/:id", GetCourseLearningOutcomeById);
 router.post("/clo", FormCourseLearningOutcomeMiddleware, CreateCourseLearningOutcome);
 router.put("/clo/:id", FormCourseLearningOutcomeMiddleware, EditCourseLearningOutcome);
 router.delete("/clo/:id", DeleteCourseLearningOutcome);
+
+router.get("/performance-indicator/:id", GetPerformanceIndicator);
 
 module.exports = router;

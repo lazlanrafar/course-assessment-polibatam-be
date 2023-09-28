@@ -1,4 +1,5 @@
 const { InternalServerError, Ok } = require("../../utils/http-response");
+const { GetPerformanceIndicator } = require("../../utils/utils-course");
 const {
   StoreCourse,
   FetchCourse,
@@ -146,6 +147,27 @@ module.exports = {
       await DestroyCourseLearningOutcome(id);
 
       return Ok(res, {}, "Course learning outcome deleted successfully!");
+    } catch (error) {
+      return InternalServerError(res, error, "Something went wrong!");
+    }
+  },
+  // ==================================================================
+  // Course Performance Indicator
+  // ==================================================================
+  GetPerformanceIndicator: async (req, res) => {
+    try {
+      const { id } = req.params;
+
+      const course = await FetchCourseById(id);
+      delete course.course_learning_outcome;
+      const performance_indicator = await GetPerformanceIndicator(id);
+
+      const payload = {
+        ...course,
+        performance_indicator,
+      };
+
+      return Ok(res, payload, "Successfully get performance indicator");
     } catch (error) {
       return InternalServerError(res, error, "Something went wrong!");
     }

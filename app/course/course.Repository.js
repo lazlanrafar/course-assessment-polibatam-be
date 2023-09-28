@@ -95,6 +95,40 @@ module.exports = {
   // Course Learning Outcomes
   // ==================================================================
 
+  FetchCourseLearningOutcomeDetailByIdCourse: async (id_course) => {
+    return await prisma.tbl_course_learning_outcome_detail.findMany({
+      where: {
+        course_learning_outcome: {
+          id_course,
+        },
+      },
+      select: {
+        rubrik: {
+          select: {
+            code: true,
+            title: true,
+            student_outcome: {
+              select: {
+                code: true,
+              },
+            },
+            cdio_syllabus: {
+              select: {
+                level: true,
+              },
+            },
+          },
+        },
+      },
+      orderBy: {
+        rubrik: {
+          cdio_syllabus: {
+            level: "asc",
+          },
+        },
+      },
+    });
+  },
   FetchCourseLearningOutcomeById: async (id) => {
     return await prisma.tbl_course_learning_outcome.findUnique({
       where: {
