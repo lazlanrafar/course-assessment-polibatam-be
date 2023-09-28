@@ -135,4 +135,19 @@ module.exports = {
       data,
     });
   },
+  UpdateCourseLearningOutcome: async (id, data) => {
+    return await prisma.tbl_course_learning_outcome.update({
+      where: {
+        id,
+      },
+      data,
+    });
+  },
+  DestroyCourseLearningOutcomeDetailByIdCLO: async (id) => {
+    return await prisma.tbl_course_learning_outcome_detail.deleteMany({
+      where: {
+        id_course_learning_outcome: id,
+      },
+    });
+  },
 };

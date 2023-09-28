@@ -5,6 +5,7 @@ const {
   EditCourse,
   CreateCourseLearningOutcome,
   GetCourseLearningOutcomeById,
+  EditCourseLearningOutcome,
 } = require("./course.Controller");
 const { FormCourseMiddleware, FormCourseLearningOutcomeMiddleware } = require("./course.Middleware");
 
@@ -19,5 +20,6 @@ router.put("/:id", FormCourseMiddleware, EditCourse);
 
 router.get("/clo/:id", GetCourseLearningOutcomeById);
 router.post("/clo", FormCourseLearningOutcomeMiddleware, CreateCourseLearningOutcome);
+router.put("/clo/:id", FormCourseLearningOutcomeMiddleware, EditCourseLearningOutcome);
 
 module.exports = router;

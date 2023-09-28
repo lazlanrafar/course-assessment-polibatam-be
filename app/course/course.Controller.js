@@ -7,6 +7,8 @@ const {
   StoreCourseLearningOutcome,
   StoreCourseLearningOutcomeDetail,
   FetchCourseLearningOutcomeById,
+  UpdateCourseLearningOutcome,
+  DestroyCourseLearningOutcomeDetailByIdCLO,
 } = require("./course.Repository");
 
 module.exports = {
@@ -108,6 +110,30 @@ module.exports = {
       return Ok(res, {}, "Course learning outcome created successfully!");
     } catch (error) {
       console.log(error);
+      return InternalServerError(res, error, "Something went wrong!");
+    }
+  },
+  EditCourseLearningOutcome: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const body = req.body;
+
+      await UpdateCourseLearningOutcome(id, {
+        id_assessment_method: body.id_assessment_method,
+        code: body.code,
+        title: body.title,
+      });
+
+      await DestroyCourseLearningOutcomeDetailByIdCLO(id);
+      for (const iterator of body.rubrik) {
+        await StoreCourseLearningOutcomeDetail({
+          id_course_learning_outcome: id,
+          id_rubrik: iterator.id,
+        });
+      }
+
+      return Ok(res, {}, "Course learning outcome updated successfully!");
+    } catch (error) {
       return InternalServerError(res, error, "Something went wrong!");
     }
   },
