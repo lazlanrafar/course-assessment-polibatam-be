@@ -6,6 +6,7 @@ const {
   UpdateCourse,
   StoreCourseLearningOutcome,
   StoreCourseLearningOutcomeDetail,
+  FetchCourseLearningOutcomeById,
 } = require("./course.Repository");
 
 module.exports = {
@@ -63,6 +64,29 @@ module.exports = {
   // ==================================================================
   // Course Learning Outcomes
   // ==================================================================
+  GetCourseLearningOutcomeById: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const result = await FetchCourseLearningOutcomeById(id);
+
+      let rubrik = [];
+      result.details.forEach((detail) => {
+        rubrik.push({
+          id: detail.rubrik.id,
+          code: detail.rubrik.code,
+          label: `${detail.rubrik.cdio_syllabus.level}/${detail.rubrik.student_outcome.code}-${detail.rubrik.code}`,
+          title: detail.rubrik.title,
+        });
+      });
+      delete result.details;
+
+      result.rubrik = rubrik;
+
+      return Ok(res, result, "Successfully get course learning outcome");
+    } catch (error) {
+      return InternalServerError(res, error, "Failed to get course learning outcome");
+    }
+  },
   CreateCourseLearningOutcome: async (req, res) => {
     try {
       const body = req.body;

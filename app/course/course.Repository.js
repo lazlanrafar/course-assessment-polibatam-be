@@ -90,6 +90,41 @@ module.exports = {
       data,
     });
   },
+
+  // ==================================================================
+  // Course Learning Outcomes
+  // ==================================================================
+
+  FetchCourseLearningOutcomeById: async (id) => {
+    return await prisma.tbl_course_learning_outcome.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        details: {
+          select: {
+            rubrik: {
+              select: {
+                id: true,
+                code: true,
+                title: true,
+                cdio_syllabus: {
+                  select: {
+                    level: true,
+                  },
+                },
+                student_outcome: {
+                  select: {
+                    code: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    });
+  },
   StoreCourseLearningOutcome: async (data) => {
     return await prisma.tbl_course_learning_outcome.create({
       data,
