@@ -64,6 +64,14 @@ model tbm_assessment_method {
   course_learning_outcome tbl_course_learning_outcome[]
 }
 
+model tbm_assessment_type {
+  id         String    @id @default(uuid())
+  code       String?
+  title      String?   @default("")
+  created_at DateTime? @default(now())
+  updated_at DateTime? @updatedAt
+}
+
 model tbm_jurusan {
   id            String              @id @default(uuid())
   title         String?             @default("")

@@ -7,6 +7,7 @@ const courseRoute = require("../app/course/course.Route");
 // SETUP ROUTES
 const rubrikRoute = require("../app/rubrik/rubrik.Route");
 const assessmentMethodRoute = require("../app/assessment-method/assessment-method.Route");
+const assessmentType = require("../app/assessment-type/assessment-type.Route");
 const CDIOSyllabusRoute = require("../app/cdio-syllabus/cdio-syllabus.Route");
 const studentOutcomeRoute = require("../app/student-outcome/student-outcome.Route");
 const studentOutcomeLevelRoute = require("../app/student-outcome-level/student-outcome-level.Route");
@@ -26,6 +27,7 @@ module.exports = function (app) {
   // SETUP ROUTES
   app.use(`${preRoute}/rubrik`, AuthToken, rubrikRoute);
   app.use(`${preRoute}/assessment-method`, AuthToken, assessmentMethodRoute);
+  app.use(`${preRoute}/assessment-type`, AuthToken, assessmentType);
   app.use(`${preRoute}/cdio-syllabus`, AuthToken, CDIOSyllabusRoute);
   app.use(`${preRoute}/student-outcome`, AuthToken, studentOutcomeRoute);
   app.use(`${preRoute}/student-outcome-level`, AuthToken, studentOutcomeLevelRoute);
