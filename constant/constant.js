@@ -1,0 +1,20 @@
+module.exports = {
+  WEEK_ASSESSMENT_PLAN: [
+    "W1",
+    "W2",
+    "W3",
+    "W4",
+    "W5",
+    "W6",
+    "W7",
+    "MID_SEM",
+    "W8",
+    "W9",
+    "W10",
+    "W11",
+    "W12",
+    "W13",
+    "W14",
+    "FINAL_SEM",
+  ],
+};

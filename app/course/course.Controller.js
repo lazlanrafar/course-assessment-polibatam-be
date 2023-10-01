@@ -11,6 +11,7 @@ const {
   UpdateCourseLearningOutcome,
   DestroyCourseLearningOutcomeDetailByIdCLO,
   DestroyCourseLearningOutcome,
+  StoreCourseAssessmentPlan,
 } = require("./course.Repository");
 
 module.exports = {
@@ -168,6 +169,26 @@ module.exports = {
       };
 
       return Ok(res, payload, "Successfully get performance indicator");
+    } catch (error) {
+      return InternalServerError(res, error, "Something went wrong!");
+    }
+  },
+  // ==================================================================
+  // Course Assessment Plan
+  // ==================================================================
+  GenerateCourseAssessmentPlan: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const performance_indicator = await GetPerformanceIndicator(id);
+
+      for (const iterator of performance_indicator) {
+        await StoreCourseAssessmentPlan({
+          id_course: id,
+          id_rubrik: iterator.id,
+        });
+      }
+
+      return Ok(res, {}, "Successfully get performance indicator");
     } catch (error) {
       return InternalServerError(res, error, "Something went wrong!");
     }

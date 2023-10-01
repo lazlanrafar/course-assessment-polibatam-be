@@ -15,6 +15,11 @@ module.exports = {
             title: true,
           },
         },
+        _count: {
+          select: {
+            course_learning_outcome: true,
+          },
+        },
       },
       orderBy: {
         program_studi: {
@@ -90,11 +95,9 @@ module.exports = {
       data,
     });
   },
-
   // ==================================================================
   // Course Learning Outcomes
   // ==================================================================
-
   FetchCourseLearningOutcomeDetailByIdCourse: async (id_course) => {
     return await prisma.tbl_course_learning_outcome_detail.findMany({
       where: {
@@ -105,6 +108,7 @@ module.exports = {
       select: {
         rubrik: {
           select: {
+            id: true,
             code: true,
             title: true,
             student_outcome: {
@@ -189,6 +193,14 @@ module.exports = {
       where: {
         id_course_learning_outcome: id,
       },
+    });
+  },
+  // ==================================================================
+  // Course Assessment Plan
+  // ==================================================================
+  StoreCourseAssessmentPlan: async (data) => {
+    return await prisma.tbl_course_assessment_plan.create({
+      data,
     });
   },
 };

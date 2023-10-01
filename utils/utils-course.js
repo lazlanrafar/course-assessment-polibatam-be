@@ -10,6 +10,7 @@ module.exports = {
         // push when rubrik.code not exist in performance_indicator
         if (performance_indicator.findIndex((item) => item.code === iterator.rubrik.code) === -1) {
           performance_indicator.push({
+            id: iterator.rubrik.id,
             code: iterator.rubrik.code,
             title: iterator.rubrik.title,
             label: `${iterator.rubrik.code}. ${iterator.rubrik.title}`,
