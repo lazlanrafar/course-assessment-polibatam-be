@@ -200,6 +200,9 @@ module.exports = {
   // ==================================================================
   FetchCourseAssessmentPlanByIdCourse: async (id_course) => {
     return await prisma.tbl_course_assessment_plan.findMany({
+      where: {
+        id_course,
+      },
       include: {
         rubrik: {
           select: {
@@ -216,6 +219,13 @@ module.exports = {
         rubrik: {
           code: "asc",
         },
+      },
+    });
+  },
+  FetchCourseAssessmentPlanById: async (id) => {
+    return await prisma.tbl_course_assessment_plan.findUnique({
+      where: {
+        id,
       },
     });
   },

@@ -163,20 +163,6 @@ model tbl_course_learning_outcome_detail {
   updated_at                 DateTime?                    @updatedAt
 }
 
-// model tbl_assessment_plan {
-//   id String @id @default(uuid())
-
-//   total_assigment           Int? @default(1)
-//   total_quiz                Int? @default(1)
-//   total_mid_exam            Int? @default(1)
-//   total_final_exam          Int? @default(1)
-//   total_practice_or_project Int? @default(1)
-//   total_presentation        Int? @default(1)
-
-//   created_at DateTime? @default(now())
-//   updated_at DateTime? @updatedAt
-// }
-
 model tbl_course_assessment_plan {
   id        String  @id @default(uuid())
   id_course String?
