@@ -234,6 +234,14 @@ module.exports = {
       data,
     });
   },
+  UpdateCourseAssessmentPlan: async (id, data) => {
+    return await prisma.tbl_course_assessment_plan.update({
+      where: {
+        id,
+      },
+      data,
+    });
+  },
   DestroyCourseAssessmentPlanByIdCourse: async (id_course) => {
     return await prisma.tbl_course_assessment_plan.deleteMany({
       where: {

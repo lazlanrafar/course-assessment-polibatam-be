@@ -15,6 +15,7 @@ const {
   DestroyCourseAssessmentPlanByIdCourse,
   FetchCourseAssessmentPlanByIdCourse,
   FetchCourseAssessmentPlanById,
+  UpdateCourseAssessmentPlan,
 } = require("./course.Repository");
 
 module.exports = {
@@ -219,6 +220,18 @@ module.exports = {
       }
 
       return Ok(res, {}, "Successfully get performance indicator");
+    } catch (error) {
+      return InternalServerError(res, error, "Something went wrong!");
+    }
+  },
+  EditCourseAssessmentPlan: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const body = req.body;
+
+      await UpdateCourseAssessmentPlan(id, body);
+
+      return Ok(res, {}, "Course assessment plan updated successfully!");
     } catch (error) {
       return InternalServerError(res, error, "Something went wrong!");
     }

@@ -11,6 +11,7 @@ const {
   GenerateCourseAssessmentPlan,
   GetCourseAssessmentPlanByIdCourse,
   GetCourseAssessmentPlanById,
+  EditCourseAssessmentPlan,
 } = require("./course.Controller");
 const { FormCourseMiddleware, FormCourseLearningOutcomeMiddleware } = require("./course.Middleware");
 
@@ -33,8 +34,8 @@ router.get("/performance-indicator/:id", GetPerformanceIndicator);
 
 // COURSE ASSESSMENT PLAN
 router.get("/assessment-plan/:id", GetCourseAssessmentPlanByIdCourse);
-
 router.get("/assessment-plan/detail/:id", GetCourseAssessmentPlanById);
 router.post("/assessment-plan/:id", GenerateCourseAssessmentPlan);
+router.put("/assessment-plan/:id", EditCourseAssessmentPlan);
 
 module.exports = router;
