@@ -13,6 +13,7 @@ const {
   DestroyCourseLearningOutcome,
   StoreCourseAssessmentPlan,
   DestroyCourseAssessmentPlanByIdCourse,
+  FetchCourseAssessmentPlanByIdCourse,
 } = require("./course.Repository");
 
 module.exports = {
@@ -177,6 +178,21 @@ module.exports = {
   // ==================================================================
   // Course Assessment Plan
   // ==================================================================
+  GetCourseAssessmentPlanByIdCourse: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const result = await FetchCourseAssessmentPlanByIdCourse(id);
+
+      result.forEach((item) => {
+        item.so_pi = `${item.rubrik.student_outcome.code}-${item.rubrik.code}`;
+        delete item.rubrik;
+      });
+
+      return Ok(res, result, "Successfully get course assessment plan");
+    } catch (error) {
+      return InternalServerError(res, error, "Something went wrong!");
+    }
+  },
   GenerateCourseAssessmentPlan: async (req, res) => {
     try {
       const { id } = req.params;

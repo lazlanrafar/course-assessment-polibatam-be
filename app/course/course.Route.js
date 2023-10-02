@@ -9,6 +9,7 @@ const {
   DeleteCourseLearningOutcome,
   GetPerformanceIndicator,
   GenerateCourseAssessmentPlan,
+  GetCourseAssessmentPlanByIdCourse,
 } = require("./course.Controller");
 const { FormCourseMiddleware, FormCourseLearningOutcomeMiddleware } = require("./course.Middleware");
 
@@ -30,6 +31,7 @@ router.delete("/clo/:id", DeleteCourseLearningOutcome);
 router.get("/performance-indicator/:id", GetPerformanceIndicator);
 
 // COURSE ASSESSMENT PLAN
+router.get("/assessment-plan/:id", GetCourseAssessmentPlanByIdCourse);
 router.post("/assessment-plan/:id", GenerateCourseAssessmentPlan);
 
 module.exports = router;
