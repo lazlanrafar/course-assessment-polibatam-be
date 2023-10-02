@@ -12,6 +12,7 @@ const {
   DestroyCourseLearningOutcomeDetailByIdCLO,
   DestroyCourseLearningOutcome,
   StoreCourseAssessmentPlan,
+  DestroyCourseAssessmentPlanByIdCourse,
 } = require("./course.Repository");
 
 module.exports = {
@@ -181,10 +182,12 @@ module.exports = {
       const { id } = req.params;
       const performance_indicator = await GetPerformanceIndicator(id);
 
+      await DestroyCourseAssessmentPlanByIdCourse(id);
       for (const iterator of performance_indicator) {
         await StoreCourseAssessmentPlan({
           id_course: id,
           id_rubrik: iterator.id,
+          created_by: req.user.nik,
         });
       }
 

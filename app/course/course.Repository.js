@@ -203,4 +203,11 @@ module.exports = {
       data,
     });
   },
+  DestroyCourseAssessmentPlanByIdCourse: async (id_course) => {
+    return await prisma.tbl_course_assessment_plan.deleteMany({
+      where: {
+        id_course,
+      },
+    });
+  },
 };
