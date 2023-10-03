@@ -1,10 +1,20 @@
 const { InternalServerError, Ok } = require("../../utils/http-response");
-const { StoreAssessment, FetchAssessment } = require("./assessment.Repository");
+const { StoreAssessment, FetchAssessment, FetchAssessmentById } = require("./assessment.Repository");
 
 module.exports = {
   GetAssessment: async (req, res) => {
     try {
       const result = await FetchAssessment();
+
+      return Ok(res, result, "Successfully get assessment");
+    } catch (error) {
+      return InternalServerError(res, error, "Failed to get assessment");
+    }
+  },
+  GetAssessmentById: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const result = await FetchAssessmentById(id);
 
       return Ok(res, result, "Successfully get assessment");
     } catch (error) {

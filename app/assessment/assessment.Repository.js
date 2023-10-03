@@ -23,8 +23,15 @@ module.exports = {
       },
     });
   },
+  FetchAssessmentById: async (id) => {
+    return await prisma.tbl_assessment.findUnique({
+      where: {
+        id,
+      },
+    });
+  },
   StoreAssessment: async (data) => {
-    await prisma.tbl_assessment.create({
+    return await prisma.tbl_assessment.create({
       data,
     });
   },
