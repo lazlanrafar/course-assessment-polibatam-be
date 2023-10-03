@@ -147,6 +147,7 @@ model tbl_course {
   updated_at              DateTime?                     @updatedAt
   course_learning_outcome tbl_course_learning_outcome[]
   course_assessment_plan  tbl_course_assessment_plan[]
+  assessment              tbl_assessment[]
 }
 
 model tbl_course_learning_outcome {
@@ -199,4 +200,41 @@ model tbl_course_assessment_plan {
   created_by String?
   created_at DateTime?   @default(now())
   updated_at DateTime?   @updatedAt
+}
+
+model tbl_assessment {
+  id        String  @id @default(uuid())
+  id_course String?
+
+  semester      String? @default("")
+  academic_year String? @default("")
+  class         String? @default("")
+
+  course     tbl_course?             @relation(fields: [id_course], references: [id])
+  created_by String?
+  created_at DateTime?               @default(now())
+  updated_at DateTime?               @updatedAt
+  details    tbl_assessment_detail[]
+}
+
+model tbl_assessment_detail {
+  id            String  @id @default(uuid())
+  id_assessment String?
+
+  nim  String? @default("")
+  name String? @default("")
+
+  quiz                Json?
+  practice_or_project Json?
+  assignment          Json?
+  mid_exam            Json?
+  final_exam          Json?
+  presentation        Json?
+
+  nilai_akhir Decimal? @default(0)
+
+  assessment tbl_assessment? @relation(fields: [id_assessment], references: [id])
+  created_by String?
+  created_at DateTime?       @default(now())
+  updated_at DateTime?       @updatedAt
 }

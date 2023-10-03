@@ -16,6 +16,7 @@ const {
   FetchCourseAssessmentPlanByIdCourse,
   FetchCourseAssessmentPlanById,
   UpdateCourseAssessmentPlan,
+  FetchCourseReady,
 } = require("./course.Repository");
 
 module.exports = {
@@ -26,6 +27,16 @@ module.exports = {
       return Ok(res, result, "Successfully get course");
     } catch (error) {
       // console.log(error);
+      return InternalServerError(res, error, "Failed to get course");
+    }
+  },
+  GetCourseReady: async (req, res) => {
+    try {
+      const result = await FetchCourseReady();
+
+      return Ok(res, result, "Successfully get course");
+    } catch (error) {
+      console.log(error);
       return InternalServerError(res, error, "Failed to get course");
     }
   },

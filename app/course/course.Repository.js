@@ -29,6 +29,31 @@ module.exports = {
       },
     });
   },
+  FetchCourseReady: async () => {
+    return await prisma.tbl_course.findMany({
+      where: {
+        is_ready: true,
+      },
+      select: {
+        id: true,
+        code: true,
+        title: true,
+        sks: true,
+        target_level: true,
+        is_ready: true,
+        program_studi: {
+          select: {
+            title: true,
+          },
+        },
+      },
+      orderBy: {
+        program_studi: {
+          title: "asc",
+        },
+      },
+    });
+  },
   FetchCourseById: async (id) => {
     return await prisma.tbl_course.findUnique({
       where: {

@@ -12,11 +12,15 @@ const {
   GetCourseAssessmentPlanByIdCourse,
   GetCourseAssessmentPlanById,
   EditCourseAssessmentPlan,
+  GetCourseReady,
 } = require("./course.Controller");
 const { FormCourseMiddleware, FormCourseLearningOutcomeMiddleware } = require("./course.Middleware");
 
 const express = require("express");
 const router = express.Router();
+
+// FETCH FOR LIST PURPOSE ONLY
+router.get("/list", GetCourseReady);
 
 // COURSE
 router.get("/", GetCourse);
