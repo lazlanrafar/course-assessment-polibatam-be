@@ -1,5 +1,12 @@
 const { InternalServerError, Ok } = require("../../utils/http-response");
-const { StoreAssessment, FetchAssessment, FetchAssessmentById, UpdateAssessment } = require("./assessment.Repository");
+const {
+  StoreAssessment,
+  FetchAssessment,
+  FetchAssessmentById,
+  UpdateAssessment,
+  DestroyAssessmentDetailByIdAssessment,
+  DestroyAssessment,
+} = require("./assessment.Repository");
 
 module.exports = {
   GetAssessment: async (req, res) => {
@@ -42,6 +49,18 @@ module.exports = {
       return Ok(res, {}, "Successfully edit assessment");
     } catch (error) {
       return InternalServerError(res, error, "Failed to edit assessment");
+    }
+  },
+  DeleteAssessment: async (req, res) => {
+    try {
+      const { id } = req.params;
+
+      await DestroyAssessmentDetailByIdAssessment(id);
+      await DestroyAssessment(id);
+
+      return Ok(res, {}, "Successfully delete assessment");
+    } catch (error) {
+      return InternalServerError(res, error, "Failed to delete assessment");
     }
   },
 };

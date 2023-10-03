@@ -43,4 +43,18 @@ module.exports = {
       data,
     });
   },
+  DestroyAssessment: async (id) => {
+    return await prisma.tbl_assessment.delete({
+      where: {
+        id,
+      },
+    });
+  },
+  DestroyAssessmentDetailByIdAssessment: async (id) => {
+    return await prisma.tbl_assessment_detail.deleteMany({
+      where: {
+        id_assessment: id,
+      },
+    });
+  },
 };
