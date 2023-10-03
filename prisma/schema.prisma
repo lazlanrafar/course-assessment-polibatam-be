@@ -130,8 +130,17 @@ model tbl_course {
   bobot_practice_or_project Int? @default(0)
   bobot_presentation        Int? @default(0)
 
+  total_assignment          Int? @default(0)
+  total_quiz                Int? @default(0)
+  total_mid_exam            Int? @default(0)
+  total_final_exam          Int? @default(0)
+  total_practice_or_project Int? @default(0)
+  total_presentation        Int? @default(0)
+
   sum_of_level Int? @default(0)
   target_level Int? @default(0)
+
+  is_ready Boolean? @default(false)
 
   program_studi           tbm_program_studi             @relation(fields: [id_program_studi], references: [id])
   created_at              DateTime?                     @default(now())

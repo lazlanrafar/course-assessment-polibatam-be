@@ -10,6 +10,7 @@ module.exports = {
         title: true,
         sks: true,
         target_level: true,
+        is_ready: true,
         program_studi: {
           select: {
             title: true,
