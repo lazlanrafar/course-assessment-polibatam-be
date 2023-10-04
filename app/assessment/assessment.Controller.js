@@ -8,6 +8,7 @@ const {
   DestroyAssessment,
   StoreAssessmentDetail,
   FetchAssessmentDetailById,
+  UpdateAssessmentDetail,
 } = require("./assessment.Repository");
 
 module.exports = {
@@ -87,6 +88,18 @@ module.exports = {
     } catch (error) {
       console.log(error);
       return InternalServerError(res, error, "Failed to create assessment detail");
+    }
+  },
+  EditAssessmentDetail: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const body = req.body;
+
+      await UpdateAssessmentDetail(id, body);
+
+      return Ok(res, {}, "Successfully edit assessment detail");
+    } catch (error) {
+      return InternalServerError(res, error, "Failed to edit assessment detail");
     }
   },
 };

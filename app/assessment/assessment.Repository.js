@@ -83,4 +83,12 @@ module.exports = {
       data,
     });
   },
+  UpdateAssessmentDetail: async (id, data) => {
+    return await prisma.tbl_assessment_detail.update({
+      where: {
+        id,
+      },
+      data,
+    });
+  },
 };
