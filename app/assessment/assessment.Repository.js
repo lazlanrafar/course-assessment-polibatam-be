@@ -69,6 +69,15 @@ module.exports = {
       },
     });
   },
+
+  // ASSESSMENT DETAIL
+  FetchAssessmentDetailById: async (id) => {
+    return await prisma.tbl_assessment_detail.findUnique({
+      where: {
+        id,
+      },
+    });
+  },
   StoreAssessmentDetail: async (data) => {
     return await prisma.tbl_assessment_detail.create({
       data,
