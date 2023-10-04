@@ -7,6 +7,7 @@ const {
   CreateAssessmentDetail,
   GetAssessmentDetailById,
   EditAssessmentDetail,
+  DeleteAssessmentDetail,
 } = require("./assessment.Controller");
 const { FormAssessmentMiddleware, FormAssessmentDetailMiddleware } = require("./assessment.Middleware");
 
@@ -22,5 +23,6 @@ router.delete("/:id", DeleteAssessment);
 router.get("/detail/:id", GetAssessmentDetailById);
 router.post("/detail", FormAssessmentDetailMiddleware, CreateAssessmentDetail);
 router.put("/detail/:id", FormAssessmentDetailMiddleware, EditAssessmentDetail);
+router.delete("/detail/:id", DeleteAssessmentDetail);
 
 module.exports = router;

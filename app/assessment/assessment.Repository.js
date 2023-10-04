@@ -91,4 +91,11 @@ module.exports = {
       data,
     });
   },
+  DestroyAssessmentDetail: async (id) => {
+    return await prisma.tbl_assessment_detail.delete({
+      where: {
+        id,
+      },
+    });
+  },
 };
