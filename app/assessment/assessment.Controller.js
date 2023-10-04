@@ -6,6 +6,7 @@ const {
   UpdateAssessment,
   DestroyAssessmentDetailByIdAssessment,
   DestroyAssessment,
+  StoreAssessmentDetail,
 } = require("./assessment.Repository");
 
 module.exports = {
@@ -61,6 +62,19 @@ module.exports = {
       return Ok(res, {}, "Successfully delete assessment");
     } catch (error) {
       return InternalServerError(res, error, "Failed to delete assessment");
+    }
+  },
+
+  CreateAssessmentDetail: async (req, res) => {
+    try {
+      const body = req.body;
+
+      await StoreAssessmentDetail(body);
+
+      return Ok(res, {}, "Successfully create assessment detail");
+    } catch (error) {
+      console.log(error);
+      return InternalServerError(res, error, "Failed to create assessment detail");
     }
   },
 };

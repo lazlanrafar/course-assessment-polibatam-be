@@ -25,6 +25,18 @@ module.exports = {
   },
   FetchAssessmentById: async (id) => {
     return await prisma.tbl_assessment.findUnique({
+      include: {
+        course: {
+          include: {
+            program_studi: {
+              select: {
+                title: true,
+              },
+            },
+          },
+        },
+        details: true,
+      },
       where: {
         id,
       },
@@ -55,6 +67,11 @@ module.exports = {
       where: {
         id_assessment: id,
       },
+    });
+  },
+  StoreAssessmentDetail: async (data) => {
+    return await prisma.tbl_assessment_detail.create({
+      data,
     });
   },
 };

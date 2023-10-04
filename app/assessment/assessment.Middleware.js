@@ -11,4 +11,14 @@ module.exports = {
       return InternalServerError(res, error, "Something went wrong!, in Middleware");
     }
   },
+  FormAssessmentDetailMiddleware: (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const body = req.body;
+
+      next();
+    } catch (error) {
+      return InternalServerError(res, error, "Something went wrong!, in Middleware");
+    }
+  },
 };
