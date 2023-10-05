@@ -1,4 +1,4 @@
-const { InternalServerError, Ok } = require("../../utils/http-response");
+const { InternalServerError, Ok, BadRequest } = require("../../utils/http-response");
 const {
   StoreAssessment,
   FetchAssessment,
@@ -84,6 +84,20 @@ module.exports = {
       const body = req.body;
 
       await StoreAssessmentDetail(body);
+
+      return Ok(res, {}, "Successfully create assessment detail");
+    } catch (error) {
+      console.log(error);
+      return InternalServerError(res, error, "Failed to create assessment detail");
+    }
+  },
+  ImportAssessmentDetail: async (req, res) => {
+    try {
+      const { data } = req.body;
+
+      for (const iterator of data) {
+        await StoreAssessmentDetail(iterator);
+      }
 
       return Ok(res, {}, "Successfully create assessment detail");
     } catch (error) {
