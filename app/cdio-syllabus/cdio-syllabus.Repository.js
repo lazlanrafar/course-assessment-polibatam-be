@@ -14,6 +14,11 @@ module.exports = {
             title: true,
           },
         },
+        _count: {
+          select: {
+            rubrik: true,
+          },
+        },
       },
       orderBy: {
         level: "asc",
@@ -22,6 +27,17 @@ module.exports = {
   },
   FetchRubrikCDIOSyllabusById: async (id) => {
     return await prisma.tbm_cdio_syllabus.findUnique({
+      select: {
+        id: true,
+        id_cdio_syllabus_parent: true,
+        level: true,
+        title: true,
+        _count: {
+          select: {
+            rubrik: true,
+          },
+        },
+      },
       where: {
         id: id,
       },
@@ -50,6 +66,13 @@ module.exports = {
         id: id,
       },
       data: data,
+    });
+  },
+  DestroyCDIOSyllabus: async (id) => {
+    return await prisma.tbm_cdio_syllabus.delete({
+      where: {
+        id: id,
+      },
     });
   },
 };

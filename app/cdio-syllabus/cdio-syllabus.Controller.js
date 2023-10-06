@@ -5,6 +5,7 @@ const {
   StoreCDIOSyllabus,
   FetchRubrikCDIOSyllabusById,
   UpdateCDIOSyllabus,
+  DestroyCDIOSyllabus,
 } = require("./cdio-syllabus.Repository");
 
 module.exports = {
@@ -64,6 +65,16 @@ module.exports = {
       return Ok(res, result, "Successfully edit CDIO Syllabus");
     } catch (error) {
       return InternalServerError(res, error, "Failed to edit CDIO Syllabus");
+    }
+  },
+  DeleteCDIOSyllabus: async (req, res) => {
+    try {
+      const { id } = req.params;
+      await DestroyCDIOSyllabus(id);
+
+      return Ok(res, {}, "Successfully delete CDIO Syllabus");
+    } catch (error) {
+      return InternalServerError(res, error, "Failed to delete CDIO Syllabus");
     }
   },
 };
