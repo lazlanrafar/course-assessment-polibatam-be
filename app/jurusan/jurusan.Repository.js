@@ -34,6 +34,17 @@ module.exports = {
       },
     });
   },
+  FetchJurusanForList: async () => {
+    return await prisma.tbm_jurusan.findMany({
+      select: {
+        id: true,
+        title: true,
+      },
+      orderBy: {
+        title: "asc",
+      },
+    });
+  },
   StoreJurusan: async (data) => {
     return await prisma.tbm_jurusan.create({
       data: data,

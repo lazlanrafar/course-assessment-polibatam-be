@@ -27,14 +27,26 @@ model tbm_jurusan {
 }
 
 model tbm_program_studi {
-  id         String       @id @default(uuid())
-  title      String?      @default("")
-  created_at DateTime?    @default(now())
-  updated_at DateTime?    @updatedAt
-  id_jurusan String
-  jurusan    tbm_jurusan  @relation(fields: [id_jurusan], references: [id])
-  rubrik     tbm_rubrik[]
-  course     tbl_course[]
+  id              String                @id @default(uuid())
+  title           String?               @default("")
+  created_at      DateTime?             @default(now())
+  updated_at      DateTime?             @updatedAt
+  id_jurusan      String
+  jurusan         tbm_jurusan           @relation(fields: [id_jurusan], references: [id])
+  rubrik          tbm_rubrik[]
+  course          tbl_course[]
+  student_outcome tbm_student_outcome[]
+}
+
+model tbm_student_outcome {
+  id               String             @id @default(uuid())
+  id_program_studi String?
+  code             String             @unique
+  title            String?            @default("")
+  program_studi    tbm_program_studi? @relation(fields: [id_program_studi], references: [id])
+  created_at       DateTime?          @default(now())
+  updated_at       DateTime?          @updatedAt
+  rubrik           tbm_rubrik[]
 }
 
 model tbm_cdio_syllabus_parent {
@@ -55,15 +67,6 @@ model tbm_cdio_syllabus {
   id_cdio_syllabus_parent String?
   cdio_syllabus_parent    tbm_cdio_syllabus_parent? @relation(fields: [id_cdio_syllabus_parent], references: [id])
   rubrik                  tbm_rubrik[]
-}
-
-model tbm_student_outcome {
-  id         String       @id @default(uuid())
-  code       String       @unique
-  title      String?      @default("")
-  created_at DateTime?    @default(now())
-  updated_at DateTime?    @updatedAt
-  rubrik     tbm_rubrik[]
 }
 
 model tbm_student_outcome_level {

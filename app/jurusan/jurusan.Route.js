@@ -1,8 +1,17 @@
-const { GetJurusan, CreateJurusan, GetJurusanById, EditJurusan, DeleteJurusan } = require("./jurusan.Controller");
+const {
+  GetJurusan,
+  CreateJurusan,
+  GetJurusanById,
+  EditJurusan,
+  DeleteJurusan,
+  GetJurusanForList,
+} = require("./jurusan.Controller");
 const { CheckIsJurusanWasUsed } = require("./jurusan.Middleware");
 
 const express = require("express");
 const router = express.Router();
+
+router.get("/list", GetJurusanForList);
 
 router.get("/", GetJurusan);
 router.get("/:id", GetJurusanById);
