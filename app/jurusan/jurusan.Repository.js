@@ -18,4 +18,9 @@ module.exports = {
       },
     });
   },
+  StoreJurusan: async (data) => {
+    return await prisma.tbm_jurusan.create({
+      data: data,
+    });
+  },
 };
