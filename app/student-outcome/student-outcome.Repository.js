@@ -16,6 +16,11 @@ module.exports = {
             title: true,
           },
         },
+        _count: {
+          select: {
+            rubrik: true,
+          },
+        },
       },
       orderBy: {
         code: "asc",
@@ -27,12 +32,16 @@ module.exports = {
       where: {
         id,
       },
-    });
-  },
-  FetchStudentOutcomeByCode: async (code) => {
-    return await prisma.tbm_student_outcome.findUnique({
-      where: {
-        code,
+      select: {
+        id: true,
+        id_program_studi: true,
+        code: true,
+        title: true,
+        _count: {
+          select: {
+            rubrik: true,
+          },
+        },
       },
     });
   },
@@ -47,6 +56,13 @@ module.exports = {
         id,
       },
       data,
+    });
+  },
+  DestroyStudentOutcome: async (id) => {
+    return await prisma.tbm_student_outcome.delete({
+      where: {
+        id,
+      },
     });
   },
 };

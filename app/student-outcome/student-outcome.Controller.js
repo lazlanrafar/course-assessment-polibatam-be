@@ -4,6 +4,7 @@ const {
   StoreStudentOutcome,
   FetchStudentOutcomeById,
   UpdateStudentOutcome,
+  DestroyStudentOutcome,
 } = require("./student-outcome.Repository");
 
 module.exports = {
@@ -48,6 +49,16 @@ module.exports = {
       return Ok(res, {}, "Successfully edit student outcome");
     } catch (error) {
       return InternalServerError(res, error, "Failed to edit student outcome");
+    }
+  },
+  DeleteStudentOutcome: async (req, res) => {
+    try {
+      const { id } = req.params;
+      await DestroyStudentOutcome(id);
+
+      return Ok(res, {}, "Successfully delete student outcome");
+    } catch (error) {
+      return InternalServerError(res, error, "Failed to delete student outcome");
     }
   },
 };
