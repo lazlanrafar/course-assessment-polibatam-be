@@ -14,7 +14,9 @@ module.exports = {
         },
         _count: {
           select: {
+            student_outcome: true,
             rubrik: true,
+            course: true,
           },
         },
       },

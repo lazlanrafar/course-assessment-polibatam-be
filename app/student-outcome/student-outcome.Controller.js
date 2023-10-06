@@ -9,7 +9,8 @@ const {
 module.exports = {
   GetStudentOutcome: async (req, res) => {
     try {
-      const result = await FetchStudentOutcome();
+      const { id_program_studi } = req.query;
+      const result = await FetchStudentOutcome(id_program_studi);
 
       return Ok(res, result, "Successfully get student outcome");
     } catch (error) {

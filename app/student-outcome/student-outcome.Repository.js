@@ -2,12 +2,20 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 module.exports = {
-  FetchStudentOutcome: async () => {
+  FetchStudentOutcome: async (id_program_studi) => {
     return await prisma.tbm_student_outcome.findMany({
+      where: {
+        ...(id_program_studi && { id_program_studi }),
+      },
       select: {
         id: true,
         code: true,
         title: true,
+        program_studi: {
+          select: {
+            title: true,
+          },
+        },
       },
       orderBy: {
         code: "asc",
