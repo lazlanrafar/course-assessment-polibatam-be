@@ -30,4 +30,12 @@ module.exports = {
       data: data,
     });
   },
+  UpdateJurusan: async (id, data) => {
+    return await prisma.tbm_jurusan.update({
+      where: {
+        id: id,
+      },
+      data: data,
+    });
+  },
 };
