@@ -5,6 +5,7 @@ const {
   FetchRubrikById,
   UpdateRubrik,
   FetchRubrikListByIdCourse,
+  DestroyRubrik,
 } = require("./rubrik.Repository");
 
 module.exports = {
@@ -71,6 +72,17 @@ module.exports = {
       return Ok(res, {}, "Successfully edit rubrik");
     } catch (error) {
       return InternalServerError(res, error, "Failed to edit rubrik");
+    }
+  },
+  DeleteRubrik: async (req, res) => {
+    try {
+      const { id } = req.params;
+
+      await DestroyRubrik(id);
+
+      return Ok(res, {}, "Successfully delete rubrik");
+    } catch (error) {
+      return InternalServerError(res, error, "Failed to delete rubrik");
     }
   },
 };

@@ -32,6 +32,25 @@ module.exports = {
       where: {
         id: id,
       },
+      select: {
+        id: true,
+        id_program_studi: true,
+        id_cdio_syllabus: true,
+        id_student_outcome: true,
+        code: true,
+        title: true,
+        desc_level_1: true,
+        desc_level_2: true,
+        desc_level_3: true,
+        desc_level_4: true,
+        desc_level_5: true,
+        _count: {
+          select: {
+            course_assessment_plan: true,
+            course_learning_outcome_detail: true,
+          },
+        },
+      },
     });
   },
   FetchRubrikListByIdCourse: async (id_course) => {
@@ -78,6 +97,13 @@ module.exports = {
         id: id,
       },
       data: data,
+    });
+  },
+  DestroyRubrik: async (id) => {
+    return await prisma.tbm_rubrik.delete({
+      where: {
+        id: id,
+      },
     });
   },
 };

@@ -4,7 +4,9 @@ const {
   GetRubrikById,
   EditRubrik,
   GetRubrikListByIdCourse,
+  DeleteRubrik,
 } = require("./rubrik.Controller");
+const { CheckIsRubrikWasUsed } = require("./rubrik.Middleware");
 
 const express = require("express");
 const router = express.Router();
@@ -16,5 +18,6 @@ router.get("/", GetRubrikByIdProgramStudi);
 router.get("/:id", GetRubrikById);
 router.post("/", CreateRubrik);
 router.put("/:id", EditRubrik);
+router.delete("/:id", CheckIsRubrikWasUsed, DeleteRubrik);
 
 module.exports = router;
