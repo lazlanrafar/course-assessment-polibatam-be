@@ -70,13 +70,22 @@ model tbm_cdio_syllabus {
 }
 
 model tbm_grading_category {
-  id          String    @id @default(uuid())
-  title       String?   @default("")
-  lower_limit Int?      @default(0)
-  upper_limit Int?      @default(0)
-  grade       String?   @default("")
-  created_at  DateTime? @default(now())
-  updated_at  DateTime? @updatedAt
+  id         String        @id @default(uuid())
+  title      String?       @default("")
+  created_at DateTime?     @default(now())
+  updated_at DateTime?     @updatedAt
+  grading    tbm_grading[]
+}
+
+model tbm_grading {
+  id                  String                @id @default(uuid())
+  id_grading_category String?
+  lower_limit         Int?                  @default(0)
+  upper_limit         Int?                  @default(0)
+  grade               String?               @default("")
+  grading_category    tbm_grading_category? @relation(fields: [id_grading_category], references: [id])
+  created_at          DateTime?             @default(now())
+  updated_at          DateTime?             @updatedAt
 }
 
 model tbm_assessment_method {
