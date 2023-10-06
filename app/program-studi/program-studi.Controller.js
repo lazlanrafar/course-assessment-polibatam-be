@@ -27,15 +27,6 @@ module.exports = {
       return InternalServerError(res, error, "Failed to get program studi detail");
     }
   },
-  GetJurusan: async (req, res) => {
-    try {
-      const result = await FetchJurusan();
-
-      return Ok(res, result, "Successfully get jurusan");
-    } catch (error) {
-      return InternalServerError(res, error, "Failed to get jurusan");
-    }
-  },
   CreateProgramStudi: async (req, res) => {
     try {
       const body = req.body;

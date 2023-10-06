@@ -12,6 +12,8 @@ const assessmentType = require("../app/assessment-type/assessment-type.Route");
 const CDIOSyllabusRoute = require("../app/cdio-syllabus/cdio-syllabus.Route");
 const studentOutcomeRoute = require("../app/student-outcome/student-outcome.Route");
 const studentOutcomeLevelRoute = require("../app/student-outcome-level/student-outcome-level.Route");
+
+const jurusanRoute = require("../app/jurusan/jurusan.Route");
 const programStudiRoute = require("../app/program-studi/program-studi.Route");
 
 // UTILITY ROUTES
@@ -33,6 +35,8 @@ module.exports = function (app) {
   app.use(`${preRoute}/cdio-syllabus`, AuthToken, CDIOSyllabusRoute);
   app.use(`${preRoute}/student-outcome`, AuthToken, studentOutcomeRoute);
   app.use(`${preRoute}/student-outcome-level`, AuthToken, studentOutcomeLevelRoute);
+
+  app.use(`${preRoute}/jurusan`, AuthToken, jurusanRoute);
   app.use(`${preRoute}/program-studi`, AuthToken, programStudiRoute);
 
   // UTILITY ROUTES

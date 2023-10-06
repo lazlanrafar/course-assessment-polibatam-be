@@ -18,6 +18,25 @@ model tbm_user {
 // DATA SETUP
 // ====================================================
 
+model tbm_jurusan {
+  id            String              @id @default(uuid())
+  title         String?             @default("")
+  created_at    DateTime?           @default(now())
+  updated_at    DateTime?           @updatedAt
+  program_studi tbm_program_studi[]
+}
+
+model tbm_program_studi {
+  id         String       @id @default(uuid())
+  title      String?      @default("")
+  created_at DateTime?    @default(now())
+  updated_at DateTime?    @updatedAt
+  id_jurusan String
+  jurusan    tbm_jurusan  @relation(fields: [id_jurusan], references: [id])
+  rubrik     tbm_rubrik[]
+  course     tbl_course[]
+}
+
 model tbm_cdio_syllabus_parent {
   id            String              @id @default(uuid())
   level         Decimal?            @db.Decimal(2, 1)
@@ -70,25 +89,6 @@ model tbm_assessment_type {
   title      String?   @default("")
   created_at DateTime? @default(now())
   updated_at DateTime? @updatedAt
-}
-
-model tbm_jurusan {
-  id            String              @id @default(uuid())
-  title         String?             @default("")
-  created_at    DateTime?           @default(now())
-  updated_at    DateTime?           @updatedAt
-  program_studi tbm_program_studi[]
-}
-
-model tbm_program_studi {
-  id         String       @id @default(uuid())
-  title      String?      @default("")
-  created_at DateTime?    @default(now())
-  updated_at DateTime?    @updatedAt
-  id_jurusan String
-  jurusan    tbm_jurusan  @relation(fields: [id_jurusan], references: [id])
-  rubrik     tbm_rubrik[]
-  course     tbl_course[]
 }
 
 model tbm_rubrik {
