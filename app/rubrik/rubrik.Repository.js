@@ -5,9 +5,12 @@ module.exports = {
   FetchRubrikByIdProgramStudi: async (id_program_studi) => {
     return await prisma.tbm_rubrik.findMany({
       where: {
-        id_program_studi,
+        ...(id_program_studi && { id_program_studi }),
       },
-      include: {
+      select: {
+        id: true,
+        code: true,
+        title: true,
         student_outcome: {
           select: {
             code: true,
