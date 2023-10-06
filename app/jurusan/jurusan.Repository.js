@@ -20,6 +20,15 @@ module.exports = {
   },
   FetchJurusanById: async (id) => {
     return await prisma.tbm_jurusan.findUnique({
+      select: {
+        id: true,
+        title: true,
+        _count: {
+          select: {
+            program_studi: true,
+          },
+        },
+      },
       where: {
         id: id,
       },
@@ -36,6 +45,13 @@ module.exports = {
         id: id,
       },
       data: data,
+    });
+  },
+  DestroyJurusan: async (id) => {
+    return await prisma.tbm_jurusan.delete({
+      where: {
+        id: id,
+      },
     });
   },
 };
