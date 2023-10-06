@@ -18,6 +18,13 @@ module.exports = {
       },
     });
   },
+  FetchJurusanById: async (id) => {
+    return await prisma.tbm_jurusan.findUnique({
+      where: {
+        id: id,
+      },
+    });
+  },
   StoreJurusan: async (data) => {
     return await prisma.tbm_jurusan.create({
       data: data,

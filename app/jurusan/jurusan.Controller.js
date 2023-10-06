@@ -1,5 +1,5 @@
 const { InternalServerError, Ok } = require("../../utils/http-response");
-const { FetchJurusan, StoreJurusan } = require("./jurusan.Repository");
+const { FetchJurusan, StoreJurusan, FetchJurusanById } = require("./jurusan.Repository");
 
 module.exports = {
   GetJurusan: async (req, res) => {
@@ -9,6 +9,16 @@ module.exports = {
       return Ok(res, result, "Successfully get jurusan");
     } catch (error) {
       return InternalServerError(res, error, "Failed to get jurusan");
+    }
+  },
+  GetJurusanById: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const result = await FetchJurusanById(id);
+
+      return Ok(res, result, "Successfully get jurusan detail");
+    } catch (error) {
+      return InternalServerError(res, error, "Failed to get jurusan detail");
     }
   },
   CreateJurusan: async (req, res) => {
