@@ -1,11 +1,26 @@
 const { PROFICIENCY_LEVEL } = require("../../constant/constant");
 const { InternalServerError, Ok } = require("../../utils/http-response");
-const { FetchProficiencyLevel, StoreProficiencyLevel, StoreProficiencyLevelDetail } = require("./proficiency-level.Repository");
+const {
+  FetchProficiencyLevel,
+  StoreProficiencyLevel,
+  StoreProficiencyLevelDetail,
+  FetchProficiencyLevelById,
+} = require("./proficiency-level.Repository");
 
 module.exports = {
   GetProficiencyLevel: async (req, res) => {
     try {
       const result = await FetchProficiencyLevel();
+
+      return Ok(res, result, "Success get proficiency level data");
+    } catch (error) {
+      return InternalServerError(res, error, "Failed to get proficiency level data");
+    }
+  },
+  GetProficiencyLevelById: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const result = await FetchProficiencyLevelById(id);
 
       return Ok(res, result, "Success get proficiency level data");
     } catch (error) {

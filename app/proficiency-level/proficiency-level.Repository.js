@@ -14,6 +14,30 @@ module.exports = {
       },
     });
   },
+  FetchProficiencyLevelById: async (id) => {
+    return await prisma.tbm_proficiency_level.findUnique({
+      where: {
+        id,
+      },
+      select: {
+        id: true,
+        level: true,
+        description: true,
+        details: {
+          select: {
+            id: true,
+            level: true,
+            description: true,
+            lower_limit: true,
+            upper_limit: true,
+          },
+          orderBy: {
+            level: "desc",
+          },
+        },
+      },
+    });
+  },
   StoreProficiencyLevel: async (data) => {
     return await prisma.tbm_proficiency_level.create({
       data,
