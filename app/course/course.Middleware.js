@@ -34,8 +34,6 @@ module.exports = {
       if (req.body.total_practice_or_project) req.body.total_practice_or_project = parseInt(req.body.total_practice_or_project);
       if (req.body.total_presentation) req.body.total_presentation = parseInt(req.body.total_presentation);
 
-      if (req.body.target_level) req.body.target_level = parseInt(req.body.target_level);
-
       delete req.body.bobot_total;
       next();
     } catch (error) {

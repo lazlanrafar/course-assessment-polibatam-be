@@ -172,7 +172,6 @@ model tbl_course {
   total_presentation        Int? @default(0)
 
   sum_of_level Int? @default(0)
-  target_level Int? @default(0)
 
   is_ready Boolean? @default(false)
 
