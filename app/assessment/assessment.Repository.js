@@ -9,6 +9,13 @@ module.exports = {
         semester: true,
         academic_year: true,
         class: true,
+        teacher_nip: true,
+        teacher_name: true,
+        proficiency_level: {
+          select: {
+            level: true,
+          },
+        },
         course: {
           select: {
             code: true,
@@ -33,6 +40,12 @@ module.exports = {
                 title: true,
               },
             },
+          },
+        },
+        proficiency_level: {
+          select: {
+            level: true,
+            description: true,
           },
         },
         details: true,

@@ -29,6 +29,19 @@ module.exports = {
       return InternalServerError(res, error, "Failed to get proficiency level data");
     }
   },
+  GetProficiencyLevelForList: async (req, res) => {
+    try {
+      const result = await FetchProficiencyLevel();
+
+      result.forEach((item) => {
+        item.label = `Level ${item.level} - ${item.description}`;
+      });
+
+      return Ok(res, result, "Success get proficiency level data");
+    } catch (error) {
+      return InternalServerError(res, error, "Failed to get proficiency level data");
+    }
+  },
   CreateProficiencyLevel: async (req, res) => {
     try {
       const body = req.body;
