@@ -5,6 +5,8 @@ const {
   StoreProficiencyLevel,
   StoreProficiencyLevelDetail,
   FetchProficiencyLevelById,
+  UpdateProficiencyLevelDetail,
+  FetchProficiencyLevelDetailById,
 } = require("./proficiency-level.Repository");
 
 module.exports = {
@@ -47,6 +49,35 @@ module.exports = {
     } catch (error) {
       console.log(error);
       return InternalServerError(res, error, "Failed to create proficiency level data");
+    }
+  },
+  // ===========================================================================================================
+  // PROFICIENCY LEVEL DETAIL
+  // ===========================================================================================================
+  GetProficiencyLevelDetailById: async (req, res) => {
+    try {
+      const { id } = req.params;
+
+      const result = await FetchProficiencyLevelDetailById(id);
+
+      return Ok(res, result, "Success get proficiency level detail data");
+    } catch (error) {
+      return InternalServerError(res, error, "Failed to get proficiency level detail data");
+    }
+  },
+  EditProficiencyLevelDetail: async (req, res) => {
+    try {
+      const body = req.body;
+      const { id } = req.params;
+
+      await UpdateProficiencyLevelDetail(id, {
+        lower_limit: +body.lower_limit,
+        upper_limit: +body.upper_limit,
+      });
+
+      return Ok(res, {}, "Success update proficiency level detail data");
+    } catch (error) {
+      return InternalServerError(res, error, "Failed to update proficiency level detail data");
     }
   },
 };

@@ -43,8 +43,33 @@ module.exports = {
       data,
     });
   },
+  // ===========================================================================================================
+  // PROFICIENCY LEVEL DETAIL
+  // ===========================================================================================================
+  FetchProficiencyLevelDetailById: async (id) => {
+    return await prisma.tbm_proficiency_level_detail.findUnique({
+      where: {
+        id,
+      },
+      select: {
+        id: true,
+        level: true,
+        description: true,
+        lower_limit: true,
+        upper_limit: true,
+      },
+    });
+  },
   StoreProficiencyLevelDetail: async (data) => {
     return await prisma.tbm_proficiency_level_detail.create({
+      data,
+    });
+  },
+  UpdateProficiencyLevelDetail: async (id, data) => {
+    return await prisma.tbm_proficiency_level_detail.update({
+      where: {
+        id,
+      },
       data,
     });
   },
