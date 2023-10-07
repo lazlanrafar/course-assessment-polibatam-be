@@ -1,20 +1,28 @@
 module.exports = {
-  WEEK_ASSESSMENT_PLAN: [
-    "W1",
-    "W2",
-    "W3",
-    "W4",
-    "W5",
-    "W6",
-    "W7",
-    "MID_SEM",
-    "W8",
-    "W9",
-    "W10",
-    "W11",
-    "W12",
-    "W13",
-    "W14",
-    "FINAL_SEM",
+  PROFICIENCY_LEVEL: [
+    {
+      level: 0,
+      description: "Not Observed",
+    },
+    {
+      level: 1,
+      description: "to have experienced or been exposed to",
+    },
+    {
+      level: 2,
+      description: "to be able to participate in and contribute to",
+    },
+    {
+      level: 3,
+      description: "to be able to understand and explain",
+    },
+    {
+      level: 4,
+      description: " to be skilled in the practice or implementation of",
+    },
+    {
+      level: 5,
+      description: "to be able to lead or innovate in",
+    },
   ],
 };

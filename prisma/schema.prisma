@@ -88,6 +88,27 @@ model tbm_grading {
   updated_at          DateTime?             @updatedAt
 }
 
+model tbm_proficiency_level {
+  id          String                         @id @default(uuid())
+  level       Int
+  description String?                        @default("")
+  created_at  DateTime?                      @default(now())
+  updated_at  DateTime?                      @updatedAt
+  details     tbm_proficiency_level_detail[]
+}
+
+model tbm_proficiency_level_detail {
+  id                   String                 @id @default(uuid())
+  id_proficiency_level String?
+  level                Int
+  description          String?                @default("")
+  lower_limit          Int?                   @default(0)
+  upper_limit          Int?                   @default(0)
+  proficiency_level    tbm_proficiency_level? @relation(fields: [id_proficiency_level], references: [id])
+  created_at           DateTime?              @default(now())
+  updated_at           DateTime?              @updatedAt
+}
+
 model tbm_assessment_method {
   id                      String                        @id @default(uuid())
   title                   String?                       @default("")
