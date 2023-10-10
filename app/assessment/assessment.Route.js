@@ -9,6 +9,7 @@ const {
   EditAssessmentDetail,
   DeleteAssessmentDetail,
   ImportAssessmentDetail,
+  GetAssessmentStep5,
 } = require("./assessment.Controller");
 const {
   FormAssessmentMiddleware,
@@ -30,5 +31,11 @@ router.post("/detail", FormAssessmentDetailMiddleware, CreateAssessmentDetail);
 router.post("/detail/import/:id_assessment", FormImportAssessmentDetailMiddleware, ImportAssessmentDetail);
 router.put("/detail/:id", FormAssessmentDetailMiddleware, EditAssessmentDetail);
 router.delete("/detail/:id", DeleteAssessmentDetail);
+
+// ==========================================================================================
+// ASSESSMENT RESULT
+// ==========================================================================================
+
+router.get("/percentage-of-students-within-each-category/:id", GetAssessmentStep5);
 
 module.exports = router;

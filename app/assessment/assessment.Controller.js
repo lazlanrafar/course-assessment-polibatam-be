@@ -1,3 +1,4 @@
+const { GetPercentageOfStudentsWithinEachCategory } = require("../../utils/calculate-assessment");
 const { InternalServerError, Ok, BadRequest } = require("../../utils/http-response");
 const {
   StoreAssessment,
@@ -126,6 +127,21 @@ module.exports = {
       return Ok(res, {}, "Successfully delete assessment detail");
     } catch (error) {
       return InternalServerError(res, error, "Failed to delete assessment detail");
+    }
+  },
+  // ================================================================
+  // ASSESSMENT RESULT
+  // ================================================================
+  GetAssessmentStep5: async (req, res) => {
+    try {
+      const { id } = req.params;
+
+      const result = await GetPercentageOfStudentsWithinEachCategory(id);
+
+      return Ok(res, result, "Successfully get percentage of students within each category");
+    } catch (error) {
+      const message = "Failed to get percentage of students within each category";
+      return InternalServerError(res, error, message);
     }
   },
 };
