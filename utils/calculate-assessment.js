@@ -215,4 +215,100 @@ module.exports = {
       return new Error(error);
     }
   },
+  GetPercentageOfStudentWithinEachProficiencyLevel: async (id_assessment) => {
+    try {
+      const Assessment = await FetchAssessmentById(id_assessment);
+      const ProficiencyLevel = await FetchProficiencyLevelById(Assessment.id_proficiency_level);
+
+      let result = [];
+      for (const grading of ProficiencyLevel.details) {
+        let quiz = [...new Array(Assessment.course.total_quiz).fill(0)];
+        let practice_or_project = [...new Array(Assessment.course.total_practice_or_project).fill(0)];
+        let assignment = [...new Array(Assessment.course.total_assignment).fill(0)];
+        let mid_exam = 0;
+        let final_exam = 0;
+        let presentation = [...new Array(Assessment.course.total_presentation).fill(0)];
+
+        for (const student of Assessment.details) {
+          for (let i = 0; i < student.quiz.length; i++) {
+            if (student.quiz[i] >= grading.lower_limit && student.quiz[i] <= grading.upper_limit) {
+              quiz[i] = quiz[i] + 1;
+            }
+          }
+
+          for (let i = 0; i < student.practice_or_project.length; i++) {
+            if (
+              student.practice_or_project[i] >= grading.lower_limit &&
+              student.practice_or_project[i] <= grading.upper_limit
+            ) {
+              practice_or_project[i] = practice_or_project[i] + 1;
+            }
+          }
+
+          for (let i = 0; i < student.assignment.length; i++) {
+            if (student.assignment[i] >= grading.lower_limit && student.assignment[i] <= grading.upper_limit) {
+              assignment[i] = assignment[i] + 1;
+            }
+          }
+
+          if (student.mid_exam >= grading.lower_limit && student.mid_exam <= grading.upper_limit) {
+            mid_exam = mid_exam + 1;
+          }
+
+          if (student.final_exam >= grading.lower_limit && student.final_exam <= grading.upper_limit) {
+            final_exam = final_exam + 1;
+          }
+
+          for (let i = 0; i < student.presentation.length; i++) {
+            if (student.presentation[i] >= grading.lower_limit && student.presentation[i] <= grading.upper_limit) {
+              presentation[i] = presentation[i] + 1;
+            }
+          }
+        }
+
+        let percentage_quiz = [...new Array(Assessment.course.total_quiz).fill(0)];
+        let percentage_practice_or_project = [...new Array(Assessment.course.total_practice_or_project).fill(0)];
+        let percentage_assignment = [...new Array(Assessment.course.total_assignment).fill(0)];
+        let percentage_mid_exam = 0;
+        let percentage_final_exam = 0;
+        let percentage_presentation = [...new Array(Assessment.course.total_presentation).fill(0)];
+
+        for (let i = 0; i < quiz.length; i++) {
+          percentage_quiz[i] = Math.round((quiz[i] / Assessment.details.length) * 100);
+        }
+
+        for (let i = 0; i < practice_or_project.length; i++) {
+          percentage_practice_or_project[i] = Math.round((practice_or_project[i] / Assessment.details.length) * 100);
+        }
+
+        for (let i = 0; i < assignment.length; i++) {
+          percentage_assignment[i] = Math.round((assignment[i] / Assessment.details.length) * 100);
+        }
+
+        percentage_mid_exam = Math.round((mid_exam / Assessment.details.length) * 100);
+
+        percentage_final_exam = Math.round((final_exam / Assessment.details.length) * 100);
+
+        for (let i = 0; i < presentation.length; i++) {
+          percentage_presentation[i] = Math.round((presentation[i] / Assessment.details.length) * 100);
+        }
+
+        result.push({
+          level: grading.level,
+          description: grading.description,
+          quiz: percentage_quiz,
+          practice_or_project: percentage_practice_or_project,
+          assignment: percentage_assignment,
+          mid_exam: percentage_mid_exam,
+          final_exam: percentage_final_exam,
+          presentation: percentage_presentation,
+        });
+      }
+
+      return result;
+    } catch (error) {
+      console.log(error);
+      return new Error(error);
+    }
+  },
 };
