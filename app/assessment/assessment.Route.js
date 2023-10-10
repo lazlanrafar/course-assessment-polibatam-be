@@ -10,6 +10,7 @@ const {
   DeleteAssessmentDetail,
   ImportAssessmentDetail,
   GetAssessmentStep5,
+  GetAssessmentStep6,
 } = require("./assessment.Controller");
 const {
   FormAssessmentMiddleware,
@@ -37,5 +38,6 @@ router.delete("/detail/:id", DeleteAssessmentDetail);
 // ==========================================================================================
 
 router.get("/percentage-of-students-within-each-category/:id", GetAssessmentStep5);
+router.get("/student-proficiency-level-attainment-for-each-assessment-tool/:id", GetAssessmentStep6);
 
 module.exports = router;

@@ -1,4 +1,7 @@
-const { GetPercentageOfStudentsWithinEachCategory } = require("../../utils/calculate-assessment");
+const {
+  GetPercentageOfStudentsWithinEachCategory,
+  GetStudentProficiencyLevelAttainmentForEachAssessmentTool,
+} = require("../../utils/calculate-assessment");
 const { InternalServerError, Ok, BadRequest } = require("../../utils/http-response");
 const {
   StoreAssessment,
@@ -20,6 +23,7 @@ module.exports = {
 
       return Ok(res, result, "Successfully get assessment");
     } catch (error) {
+      console.log(error);
       return InternalServerError(res, error, "Failed to get assessment");
     }
   },
@@ -141,6 +145,18 @@ module.exports = {
       return Ok(res, result, "Successfully get percentage of students within each category");
     } catch (error) {
       const message = "Failed to get percentage of students within each category";
+      return InternalServerError(res, error, message);
+    }
+  },
+  GetAssessmentStep6: async (req, res) => {
+    try {
+      const { id } = req.params;
+
+      const result = await GetStudentProficiencyLevelAttainmentForEachAssessmentTool(id);
+
+      return Ok(res, result, "Successfully get Step 6");
+    } catch (error) {
+      const message = "Failed to get Step 6";
       return InternalServerError(res, error, message);
     }
   },
