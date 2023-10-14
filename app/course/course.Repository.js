@@ -231,6 +231,7 @@ module.exports = {
         rubrik: {
           select: {
             code: true,
+            title: true,
             student_outcome: {
               select: {
                 code: true,

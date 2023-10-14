@@ -396,6 +396,7 @@ module.exports = {
 
         data.push({
           so_pi: SO_PI.rubrik.student_outcome.code + "-" + SO_PI.rubrik.code,
+          title: SO_PI.rubrik.title,
           quiz: quiz,
           practice_or_project: practice_or_project,
           assignment: assignment,
@@ -552,6 +553,7 @@ module.exports = {
 
         result.push({
           so_pi: item.so_pi,
+          title: item.title,
           category: category,
           proficiency_level: proficiency_level,
         });
