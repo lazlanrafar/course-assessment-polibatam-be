@@ -467,8 +467,8 @@ module.exports = {
             quiz: quiz,
             practice_or_project: practice_or_project,
             assignment: assignment,
-            mid_exam: mid_exam,
-            final_exam: final_exam,
+            mid_exam: mid_exam ? mid_exam : 0,
+            final_exam: final_exam ? final_exam : 0,
             presentation: presentation,
           });
         }
