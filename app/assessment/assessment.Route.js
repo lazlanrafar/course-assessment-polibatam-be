@@ -13,6 +13,7 @@ const {
   GetAssessmentStep6,
   GetAssessmentStep7,
   GetAssessmentStep8,
+  GetAssessmentStep9,
 } = require("./assessment.Controller");
 const {
   FormAssessmentMiddleware,
@@ -43,5 +44,6 @@ router.get("/percentage-of-students-within-each-category/:id", GetAssessmentStep
 router.get("/student-proficiency-level-attainment-for-each-assessment-tool/:id", GetAssessmentStep6);
 router.get("/percentage-of-student-within-each-proficiency-level/:id", GetAssessmentStep7);
 router.get("/attainment-of-each-performance-indicator/:id", GetAssessmentStep8);
+router.get("/summary-of-course-assessment-results/:id", GetAssessmentStep9);
 
 module.exports = router;

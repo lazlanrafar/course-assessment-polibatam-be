@@ -622,9 +622,127 @@ const GetAttainmentOfEachPerformanceIndicator = async (id_assessment) => {
   }
 };
 
+const GetSummaryOfCourseAssessmentResults = async (id_assessment) => {
+  try {
+    const STEP8 = await GetAttainmentOfEachPerformanceIndicator(id_assessment);
+
+    let category = [];
+    let category_chart = [];
+
+    let proficiency_level = [];
+    let proficiency_level_chart = [];
+
+    for (const iterator of STEP8) {
+      let data_category = [];
+      for (const item of iterator.category) {
+        category.push({
+          so_pi: iterator.so_pi,
+          title: item.title,
+          average: item.average,
+        });
+
+        data_category.push({
+          title: item.title,
+          average: item.average,
+        });
+      }
+      category_chart.push({
+        so_pi: iterator.so_pi,
+        data: data_category,
+      });
+
+      let data_proficiency_level = [];
+      for (const item of iterator.proficiency_level) {
+        proficiency_level.push({
+          so_pi: iterator.so_pi,
+          level: item.level,
+          description: item.description,
+          average: item.average,
+        });
+
+        data_proficiency_level.push({
+          level: item.level,
+          description: item.description,
+          average: item.average,
+        });
+      }
+
+      proficiency_level_chart.push({
+        so_pi: iterator.so_pi,
+        data: data_proficiency_level,
+      });
+    }
+
+    let list_category = [];
+    for (const item of category) {
+      if (!list_category.includes(item.title)) {
+        list_category.push(item.title);
+      }
+    }
+
+    let list_proficiency_level = [];
+    for (const item of proficiency_level) {
+      if (!list_proficiency_level.some((value) => value.level === item.level)) {
+        list_proficiency_level.push({
+          level: item.level,
+          description: item.description,
+        });
+      }
+    }
+
+    let category_formatted = [];
+    for (const ct of list_category) {
+      let data = [];
+      for (const iterator of category) {
+        if (iterator.title === ct) {
+          data.push({
+            so_pi: iterator.so_pi,
+            average: iterator.average,
+          });
+        }
+      }
+
+      category_formatted.push({
+        title: ct,
+        data: data,
+      });
+    }
+
+    let proficiency_level_formatted = [];
+    for (const pl of list_proficiency_level) {
+      let data = [];
+      for (const iterator of proficiency_level) {
+        if (iterator.level === pl.level) {
+          data.push({
+            so_pi: iterator.so_pi,
+            average: iterator.average,
+          });
+        }
+      }
+
+      proficiency_level_formatted.push({
+        level: pl.level,
+        description: pl.description,
+        data: data,
+      });
+    }
+
+    return {
+      category: category_formatted,
+      category_chart: category_chart,
+      proficiency_level: proficiency_level_formatted,
+      proficiency_level_chart: proficiency_level_chart,
+    };
+  } catch (error) {
+    console.log(error);
+    new Error(error);
+  }
+};
+
 module.exports = {
   GetPercentageOfStudentsWithinEachCategory,
   GetPercentageOfStudentWithinEachProficiencyLevel,
   GetStudentProficiencyLevelAttainmentForEachAssessmentTool,
   GetAttainmentOfEachPerformanceIndicator,
+  GetSummaryOfCourseAssessmentResults,
 };
