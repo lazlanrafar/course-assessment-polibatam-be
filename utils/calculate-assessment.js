@@ -627,10 +627,7 @@ const GetSummaryOfCourseAssessmentResults = async (id_assessment) => {
     const STEP8 = await GetAttainmentOfEachPerformanceIndicator(id_assessment);
 
     let category = [];
-    let category_chart = [];
-
     let proficiency_level = [];
-    let proficiency_level_chart = [];
 
     for (const iterator of STEP8) {
       let data_category = [];
@@ -646,10 +643,6 @@ const GetSummaryOfCourseAssessmentResults = async (id_assessment) => {
           average: item.average,
         });
       }
-      category_chart.push({
-        so_pi: iterator.so_pi,
-        data: data_category,
-      });
 
       let data_proficiency_level = [];
       for (const item of iterator.proficiency_level) {
@@ -666,11 +659,6 @@ const GetSummaryOfCourseAssessmentResults = async (id_assessment) => {
           average: item.average,
         });
       }
-
-      proficiency_level_chart.push({
-        so_pi: iterator.so_pi,
-        data: data_proficiency_level,
-      });
     }
 
     let list_category = [];
@@ -725,6 +713,45 @@ const GetSummaryOfCourseAssessmentResults = async (id_assessment) => {
         description: pl.description,
         data: data,
       });
+    }
+
+    let category_chart = [["Performance Indicator", ...list_category]];
+    let proficiency_level_chart = [
+      ["Proficiency Level", ...list_proficiency_level.map((item) => `Level ${item.level}`)],
+    ];
+
+    // CHART CATEGORY
+    const soPiMapCategory = {};
+    for (const iterator of category_formatted[0].data) {
+      soPiMapCategory[iterator.so_pi] = [iterator.average];
+    }
+
+    for (let i = 1; i < category_formatted.length; i++) {
+      const performanceData = category_formatted[i].data;
+      for (const item of performanceData) {
+        soPiMapCategory[item.so_pi].push(item.average);
+      }
+    }
+
+    for (const soPi in soPiMapCategory) {
+      category_chart.push([soPi, ...soPiMapCategory[soPi]]);
+    }
+
+    // CHART PROFICIENCY LEVEL
+    const soPiMapProficiencyLevel = {};
+    for (const iterator of proficiency_level_formatted[0].data) {
+      soPiMapProficiencyLevel[iterator.so_pi] = [iterator.average];
+    }
+
+    for (let i = 1; i < proficiency_level_formatted.length; i++) {
+      const performanceData = proficiency_level_formatted[i].data;
+      for (const item of performanceData) {
+        soPiMapProficiencyLevel[item.so_pi].push(item.average);
+      }
+    }
+
+    for (const soPi in soPiMapProficiencyLevel) {
+      proficiency_level_chart.push([soPi, ...soPiMapProficiencyLevel[soPi]]);
     }
 
     return {
