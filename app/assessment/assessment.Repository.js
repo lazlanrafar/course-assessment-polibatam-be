@@ -46,6 +46,7 @@ module.exports = {
           select: {
             level: true,
             description: true,
+            details: true,
           },
         },
         details: true,

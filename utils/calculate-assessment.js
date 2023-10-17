@@ -624,6 +624,7 @@ const GetAttainmentOfEachPerformanceIndicator = async (id_assessment) => {
 
 const GetSummaryOfCourseAssessmentResults = async (id_assessment) => {
   try {
+    const Assessment = await FetchAssessmentById(id_assessment);
     const STEP8 = await GetAttainmentOfEachPerformanceIndicator(id_assessment);
 
     let category = [];
@@ -754,11 +755,42 @@ const GetSummaryOfCourseAssessmentResults = async (id_assessment) => {
       proficiency_level_chart.push([soPi, ...soPiMapProficiencyLevel[soPi]]);
     }
 
+    // ========================================================================================
+    // TARGET CHART
+    // ========================================================================================
+
+    let category_chart_target = category_chart;
+    let proficiency_level_chart_target = proficiency_level_chart;
+
+    const Limit = Assessment.proficiency_level.details;
+    const LowerLimit = Limit.map((item) => item.lower_limit).sort((a, b) => b - a);
+    const Target = LowerLimit[0];
+    const TargetLevel = Assessment.proficiency_level.level;
+
+    category_chart_target = category_chart_target.map((item) => {
+      return item.slice(0, TargetLevel + 1);
+    });
+    category_chart_target[0].push("Target");
+    category_chart_target.map((item, i) => {
+      if (i !== 0) item.push(Target);
+    });
+
+    proficiency_level_chart_target = proficiency_level_chart_target.map((item) => {
+      return item.slice(0, 2);
+    });
+    proficiency_level_chart_target[0].push("Target");
+    proficiency_level_chart_target.map((item, i) => {
+      if (i !== 0) item.push(Target);
+    });
+
     return {
+      assessment: Assessment,
       category: category_formatted,
       category_chart: category_chart,
+      category_chart_target: category_chart_target,
       proficiency_level: proficiency_level_formatted,
       proficiency_level_chart: proficiency_level_chart,
+      proficiency_level_chart_target: proficiency_level_chart_target,
     };
   } catch (error) {
     console.log(error);
