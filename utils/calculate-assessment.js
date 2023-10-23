@@ -320,6 +320,71 @@ const GetStudentProficiencyLevelAttainmentForEachAssessmentTool = async (id_asse
   }
 };
 
+const ProficiencyLevelAverage = async (id_assessment) => {
+  try {
+    const StudentProficiencyLevel = await GetStudentProficiencyLevelAttainmentForEachAssessmentTool(id_assessment);
+
+    let total_quiz = [...new Array(StudentProficiencyLevel[0].quiz.length).fill(0)];
+    let total_practice_or_project = [...new Array(StudentProficiencyLevel[0].practice_or_project.length).fill(0)];
+    let total_assignment = [...new Array(StudentProficiencyLevel[0].assignment.length).fill(0)];
+    let total_mid_exam = 0;
+    let total_final_exam = 0;
+    let total_presentation = [...new Array(StudentProficiencyLevel[0].presentation.length).fill(0)];
+
+    for (const student of StudentProficiencyLevel) {
+      for (let i = 0; i < student.quiz.length; i++) {
+        total_quiz[i] = total_quiz[i] + student.quiz[i];
+      }
+
+      for (let i = 0; i < student.practice_or_project.length; i++) {
+        total_practice_or_project[i] = total_practice_or_project[i] + student.practice_or_project[i];
+      }
+
+      for (let i = 0; i < student.assignment.length; i++) {
+        total_assignment[i] = total_assignment[i] + student.assignment[i];
+      }
+
+      total_mid_exam = total_mid_exam + student.mid_exam;
+
+      total_final_exam = total_final_exam + student.final_exam;
+
+      for (let i = 0; i < student.presentation.length; i++) {
+        total_presentation[i] = total_presentation[i] + student.presentation[i];
+      }
+    }
+
+    const totalStudent = StudentProficiencyLevel.length;
+    total_quiz = total_quiz.map((value) => value / totalStudent);
+    total_practice_or_project = total_practice_or_project.map((value) => value / totalStudent);
+    total_assignment = total_assignment.map((value) => value / totalStudent);
+    total_mid_exam = total_mid_exam / totalStudent;
+    total_final_exam = total_final_exam / totalStudent;
+    total_presentation = total_presentation.map((value) => value / totalStudent);
+
+    // decimal 1
+    total_quiz = total_quiz.map((value) => parseFloat(value.toFixed(1)));
+    total_practice_or_project = total_practice_or_project.map((value) => parseFloat(value.toFixed(1)));
+    total_assignment = total_assignment.map((value) => parseFloat(value.toFixed(1)));
+    total_mid_exam = parseFloat(total_mid_exam.toFixed(1));
+    total_final_exam = parseFloat(total_final_exam.toFixed(1));
+    total_presentation = total_presentation.map((value) => parseFloat(value.toFixed(1)));
+
+    const data = {
+      quiz: total_quiz,
+      practice_or_project: total_practice_or_project,
+      assignment: total_assignment,
+      mid_exam: total_mid_exam,
+      final_exam: total_final_exam,
+      presentation: total_presentation,
+    };
+
+    return data;
+  } catch (error) {
+    console.log(error);
+    throw Error(error);
+  }
+};
+
 const GetAttainmentOfEachPerformanceIndicator = async (id_assessment) => {
   try {
     const GradingCategory = await FetchGradingCategory();
@@ -802,6 +867,7 @@ module.exports = {
   GetPercentageOfStudentsWithinEachCategory,
   GetPercentageOfStudentWithinEachProficiencyLevel,
   GetStudentProficiencyLevelAttainmentForEachAssessmentTool,
+  ProficiencyLevelAverage,
   GetAttainmentOfEachPerformanceIndicator,
   GetSummaryOfCourseAssessmentResults,
 };

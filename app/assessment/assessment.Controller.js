@@ -4,6 +4,7 @@ const {
   GetPercentageOfStudentWithinEachProficiencyLevel,
   GetAttainmentOfEachPerformanceIndicator,
   GetSummaryOfCourseAssessmentResults,
+  ProficiencyLevelAverage,
 } = require("../../utils/calculate-assessment");
 const { InternalServerError, Ok, BadRequest } = require("../../utils/http-response");
 const {
@@ -160,6 +161,18 @@ module.exports = {
       return Ok(res, result, "Successfully get Step 6");
     } catch (error) {
       const message = "Failed to get Step 6";
+      return InternalServerError(res, error, message);
+    }
+  },
+  GetAssessmentProficiencyLevelAverage: async (req, res) => {
+    try {
+      const { id } = req.params;
+
+      const result = await ProficiencyLevelAverage(id);
+
+      return Ok(res, result, "Successfully get Assessment Proficiency Level");
+    } catch (error) {
+      const message = "Failed to get Assessment Proficiency Level";
       return InternalServerError(res, error, message);
     }
   },

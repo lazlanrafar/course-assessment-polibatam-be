@@ -14,6 +14,7 @@ const {
   GetAssessmentStep7,
   GetAssessmentStep8,
   GetAssessmentStep9,
+  GetAssessmentProficiencyLevelAverage,
 } = require("./assessment.Controller");
 const {
   FormAssessmentMiddleware,
@@ -42,6 +43,7 @@ router.delete("/detail/:id", DeleteAssessmentDetail);
 
 router.get("/percentage-of-students-within-each-category/:id", GetAssessmentStep5);
 router.get("/student-proficiency-level-attainment-for-each-assessment-tool/:id", GetAssessmentStep6);
+router.get("/proficiency-level-average/:id", GetAssessmentProficiencyLevelAverage);
 router.get("/percentage-of-student-within-each-proficiency-level/:id", GetAssessmentStep7);
 router.get("/attainment-of-each-performance-indicator/:id", GetAssessmentStep8);
 router.get("/summary-of-course-assessment-results/:id", GetAssessmentStep9);
