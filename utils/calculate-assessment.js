@@ -826,7 +826,7 @@ const GetSummaryOfCourseAssessmentResults = async (id_assessment) => {
     const TargetLevel = Assessment.proficiency_level.level;
 
     let category_target = category_formatted;
-    let proficiency_level_target = proficiency_level_formatted;
+    let proficiency_level_target = [];
 
     category_target = category_target.slice(0, TargetLevel);
     category_target.push({
@@ -837,6 +837,31 @@ const GetSummaryOfCourseAssessmentResults = async (id_assessment) => {
           average: Target,
         };
       }),
+    });
+
+    let average_so_pi = [];
+    let target_so_pi = [];
+
+    for (const iterator of STEP8) {
+      average_so_pi.push({
+        so_pi: iterator.so_pi,
+        average: iterator.average,
+      });
+
+      target_so_pi.push({
+        so_pi: iterator.so_pi,
+        average: TargetLevel,
+      });
+    }
+
+    proficiency_level_target.push({
+      title: `Average Level Attainment`,
+      data: average_so_pi,
+    });
+
+    proficiency_level_target.push({
+      title: `Targeted Level`,
+      data: target_so_pi,
     });
 
     // ========================================================================================
