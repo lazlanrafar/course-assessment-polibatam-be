@@ -474,6 +474,8 @@ const GetAttainmentOfEachPerformanceIndicator = async (id_assessment) => {
       id_assessment
     );
 
+    const PROFICIENCY_LEVEL_AVERAGE = await ProficiencyLevelAverage(id_assessment);
+
     let result = [];
     for (const item of data) {
       let category = [];
@@ -654,6 +656,42 @@ const GetAttainmentOfEachPerformanceIndicator = async (id_assessment) => {
         });
       }
 
+      let level_total = 0;
+      let level_length = 0;
+
+      for (let i = 0; i < item.quiz.length; i++) {
+        level_total += PROFICIENCY_LEVEL_AVERAGE.quiz[item.quiz[i] - 1];
+        level_length++;
+      }
+
+      for (let i = 0; i < item.practice_or_project.length; i++) {
+        level_total += PROFICIENCY_LEVEL_AVERAGE.practice_or_project[item.practice_or_project[i] - 1];
+        level_length++;
+      }
+
+      for (let i = 0; i < item.assignment.length; i++) {
+        level_total += PROFICIENCY_LEVEL_AVERAGE.assignment[item.assignment[i] - 1];
+        level_length++;
+      }
+
+      if (item.mid_exam) {
+        level_total += PROFICIENCY_LEVEL_AVERAGE.mid_exam;
+        level_length++;
+      }
+
+      if (item.final_exam) {
+        level_total += PROFICIENCY_LEVEL_AVERAGE.final_exam;
+        level_length++;
+      }
+
+      for (let i = 0; i < item.presentation.length; i++) {
+        level_total += PROFICIENCY_LEVEL_AVERAGE.presentation[item.presentation[i] - 1];
+        level_length++;
+      }
+
+      let average = level_total / level_length;
+      average = average.toFixed(1);
+
       for (const iterator of category) {
         if (item.quiz.length === 0) delete iterator.quiz;
         if (item.practice_or_project.length === 0) delete iterator.practice_or_project;
@@ -677,6 +715,7 @@ const GetAttainmentOfEachPerformanceIndicator = async (id_assessment) => {
         title: item.title,
         category: category,
         proficiency_level: proficiency_level,
+        average: average,
       });
     }
 
@@ -781,6 +820,29 @@ const GetSummaryOfCourseAssessmentResults = async (id_assessment) => {
       });
     }
 
+    const Limit = Assessment.proficiency_level.details;
+    const LowerLimit = Limit.map((item) => item.lower_limit).sort((a, b) => b - a);
+    const Target = LowerLimit[0];
+    const TargetLevel = Assessment.proficiency_level.level;
+
+    let category_target = category_formatted;
+    let proficiency_level_target = proficiency_level_formatted;
+
+    category_target = category_target.slice(0, TargetLevel);
+    category_target.push({
+      title: "Target Attainment",
+      data: category_target[0].data.map((item) => {
+        return {
+          so_pi: item.so_pi,
+          average: Target,
+        };
+      }),
+    });
+
+    // ========================================================================================
+    //  CHART
+    // ========================================================================================
+
     let category_chart = [["Performance Indicator", ...list_category]];
     let proficiency_level_chart = [
       ["Proficiency Level", ...list_proficiency_level.map((item) => `Level ${item.level}`)],
@@ -827,11 +889,6 @@ const GetSummaryOfCourseAssessmentResults = async (id_assessment) => {
     let category_chart_target = category_chart;
     let proficiency_level_chart_target = proficiency_level_chart;
 
-    const Limit = Assessment.proficiency_level.details;
-    const LowerLimit = Limit.map((item) => item.lower_limit).sort((a, b) => b - a);
-    const Target = LowerLimit[0];
-    const TargetLevel = Assessment.proficiency_level.level;
-
     category_chart_target = category_chart_target.map((item) => {
       return item.slice(0, TargetLevel + 1);
     });
@@ -848,14 +905,44 @@ const GetSummaryOfCourseAssessmentResults = async (id_assessment) => {
       if (i !== 0) item.push(Target);
     });
 
+    // ========================================================================================
+    // RADAR CHART
+    // ========================================================================================
+
+    // store so_pi list to labels
+    const labels = [];
+    for (const iterator of STEP8) {
+      labels.push(iterator.so_pi);
+    }
+
+    const datasets = [];
+
+    datasets.push({
+      label: "Average Level Attainment",
+      data: [],
+    });
+
+    datasets.push({
+      label: "Targeted Level",
+      data: [],
+    });
+
+    const data_radar = {
+      labels,
+      datasets,
+    };
+
     return {
       assessment: Assessment,
       category: category_formatted,
+      category_target: category_target,
       category_chart: category_chart,
       category_chart_target: category_chart_target,
       proficiency_level: proficiency_level_formatted,
+      proficiency_level_target: proficiency_level_target,
       proficiency_level_chart: proficiency_level_chart,
       proficiency_level_chart_target: proficiency_level_chart_target,
+      data_radar: data_radar,
     };
   } catch (error) {
     console.log(error);
