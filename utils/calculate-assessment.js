@@ -936,20 +936,29 @@ const GetSummaryOfCourseAssessmentResults = async (id_assessment) => {
 
     // store so_pi list to labels
     const labels = [];
+    const data_average_level_attainment = [];
+    const data_targeted_level = [];
+
     for (const iterator of STEP8) {
       labels.push(iterator.so_pi);
+      data_average_level_attainment.push(parseFloat(iterator.average));
+      data_targeted_level.push(TargetLevel);
     }
 
     const datasets = [];
 
     datasets.push({
       label: "Average Level Attainment",
-      data: [],
+      borderColor: "rgb(54, 162, 235)",
+      backgroundColor: "rgba(54, 162, 235)",
+      data: data_average_level_attainment,
     });
 
     datasets.push({
       label: "Targeted Level",
-      data: [],
+      borderColor: "rgb(255, 159, 64)",
+      backgroundColor: "rgba(255, 159, 64)",
+      data: data_targeted_level,
     });
 
     const data_radar = {
