@@ -248,7 +248,8 @@ model tbl_assessment {
   academic_year String? @default("")
   class         String? @default("")
 
-  is_ready Boolean? @default(false)
+  target_attainment Int?     @default(0)
+  is_ready          Boolean? @default(false)
 
   proficiency_level tbm_proficiency_level?  @relation(fields: [id_proficiency_level], references: [id])
   course            tbl_course?             @relation(fields: [id_course], references: [id])

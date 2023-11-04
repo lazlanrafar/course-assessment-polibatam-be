@@ -820,9 +820,7 @@ const GetSummaryOfCourseAssessmentResults = async (id_assessment) => {
       });
     }
 
-    const Limit = Assessment.proficiency_level.details;
-    const LowerLimit = Limit.map((item) => item.lower_limit).sort((a, b) => b - a);
-    const Target = LowerLimit[0];
+    const Target = Assessment.target_attainment;
     const TargetLevel = Assessment.proficiency_level.level;
 
     let category_target = category_formatted;

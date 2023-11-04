@@ -7,6 +7,8 @@ module.exports = {
       const { id } = req.params;
       if (!id) req.body.created_by = req.user.nik;
 
+      req.body.target_attainment = parseInt(req.body.target_attainment);
+
       next();
     } catch (error) {
       return InternalServerError(res, error, "Something went wrong!, in Middleware");
@@ -26,7 +28,8 @@ module.exports = {
       let average_assignment = body.assignment.reduce((a, b) => parseInt(a) + parseInt(b), 0) / body.assignment.length;
       let average_mid_exam = parseInt(body.mid_exam);
       let average_final_exam = parseInt(body.final_exam);
-      let average_presentation = body.presentation.reduce((a, b) => parseInt(a) + parseInt(b), 0) / body.presentation.length;
+      let average_presentation =
+        body.presentation.reduce((a, b) => parseInt(a) + parseInt(b), 0) / body.presentation.length;
 
       let quiz = average_quiz * (assessment.course.bobot_quiz / 100);
       let practice_or_project = average_practice_or_project * (assessment.course.bobot_practice_or_project / 100);
@@ -60,8 +63,10 @@ module.exports = {
       for (const iterator of data) {
         let average_quiz = iterator.quiz.reduce((a, b) => parseInt(a) + parseInt(b), 0) / iterator.quiz.length;
         let average_practice_or_project =
-          iterator.practice_or_project.reduce((a, b) => parseInt(a) + parseInt(b), 0) / iterator.practice_or_project.length;
-        let average_assignment = iterator.assignment.reduce((a, b) => parseInt(a) + parseInt(b), 0) / iterator.assignment.length;
+          iterator.practice_or_project.reduce((a, b) => parseInt(a) + parseInt(b), 0) /
+          iterator.practice_or_project.length;
+        let average_assignment =
+          iterator.assignment.reduce((a, b) => parseInt(a) + parseInt(b), 0) / iterator.assignment.length;
         let average_mid_exam = parseInt(iterator.mid_exam);
         let average_final_exam = parseInt(iterator.final_exam);
         let average_presentation =
