@@ -7,6 +7,7 @@ const {
   ProficiencyLevelAverage,
 } = require("../../utils/calculate-assessment");
 const { InternalServerError, Ok, BadRequest } = require("../../utils/http-response");
+const { FetchGrading } = require("../grading-category/grading-category.Repository");
 const {
   StoreAssessment,
   FetchAssessment,
@@ -35,6 +36,17 @@ module.exports = {
     try {
       const { id } = req.params;
       const result = await FetchAssessmentById(id);
+
+      const Grading = await FetchGrading();
+
+      result.details.forEach((item) => {
+        for (const itt of Grading) {
+          if (item.nilai_akhir >= itt.lower_limit && item.nilai_akhir <= itt.upper_limit) {
+            item.grade = itt.grade;
+            break;
+          }
+        }
+      });
 
       return Ok(res, result, "Successfully get assessment");
     } catch (error) {
