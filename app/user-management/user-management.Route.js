@@ -1,4 +1,10 @@
-const { GetUnitPegawai, GetPegawai, GetPegawaiByNIP, CreatePegawaiAdmin } = require("./user-management.Controller");
+const {
+  GetUnitPegawai,
+  GetPegawai,
+  GetPegawaiByNIP,
+  CreatePegawaiAdmin,
+  DeletePegawaiAdmin,
+} = require("./user-management.Controller");
 
 const express = require("express");
 const { MiddlewareUserManagementCheckIsUserWasAdmin } = require("./user-management.Middleware");
@@ -8,6 +14,7 @@ router.get("/unit", GetUnitPegawai);
 
 router.get("/", GetPegawai);
 router.get("/:nip", GetPegawaiByNIP);
-router.post("/:nip", MiddlewareUserManagementCheckIsUserWasAdmin, CreatePegawaiAdmin);
+router.post("/admin/:nip", MiddlewareUserManagementCheckIsUserWasAdmin, CreatePegawaiAdmin);
+router.delete("/admin/:nip", DeletePegawaiAdmin);
 
 module.exports = router;

@@ -19,4 +19,11 @@ module.exports = {
       },
     });
   },
+  DestroyUser: async (nip) => {
+    return await prisma.tbm_user.delete({
+      where: {
+        uid: nip,
+      },
+    });
+  },
 };

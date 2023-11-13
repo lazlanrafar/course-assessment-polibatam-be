@@ -1,7 +1,7 @@
 const { FetchPolibatam } = require("../../utils/fetch-polibatam");
 const { Ok, InternalServerError } = require("../../utils/http-response");
 const { getRedis, setRedis } = require("../../utils/redis");
-const { StoreUser, FetchUser } = require("./user-management.Repository");
+const { StoreUser, FetchUser, DestroyUser } = require("./user-management.Repository");
 
 module.exports = {
   GetUnitPegawai: async (req, res) => {
@@ -85,6 +85,17 @@ module.exports = {
       return Ok(res, null, "Successful to create pegawai admin");
     } catch (error) {
       return InternalServerError(res, error, "Failed to create pegawai admin");
+    }
+  },
+  DeletePegawaiAdmin: async (req, res) => {
+    try {
+      const { nip } = req.params;
+
+      await DestroyUser(nip);
+
+      return Ok(res, null, "Successful to delete pegawai admin");
+    } catch (error) {
+      return InternalServerError(res, error, "Failed to delete pegawai admin");
     }
   },
 };
