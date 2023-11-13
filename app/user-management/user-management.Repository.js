@@ -12,6 +12,14 @@ module.exports = {
       },
     });
   },
+  FetchUserIsAdminByNIP: async (nip) => {
+    const user = await prisma.tbm_user.findUnique({
+      where: {
+        uid: nip,
+      },
+    });
+    return user ? true : false;
+  },
   StoreUser: async (nip) => {
     return await prisma.tbm_user.create({
       data: {

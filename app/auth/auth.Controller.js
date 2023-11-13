@@ -1,6 +1,7 @@
 const { FetchPolibatam } = require("../../utils/fetch-polibatam");
 const { BadRequest, Ok, InternalServerError } = require("../../utils/http-response");
 const { EncryptToken } = require("../../utils/jwt");
+const { FetchUserIsAdminByNIP } = require("../user-management/user-management.Repository");
 
 module.exports = {
   Login: async (req, res) => {
@@ -26,11 +27,11 @@ module.exports = {
         secretkey: resLogin.data.data.secretkey,
       });
 
-      //   const isAdmin = (await FetchIsAdmin(result.data.data.id)) ? true : false;
-
+      // console.log(result.data.data);
       const payload = {
         user: {
           ...result.data.data,
+          is_admin: await FetchUserIsAdminByNIP(result.data.data.id),
         },
         token,
       };
