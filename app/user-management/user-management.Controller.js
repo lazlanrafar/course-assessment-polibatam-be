@@ -1,5 +1,6 @@
 const { FetchPolibatam } = require("../../utils/fetch-polibatam");
 const { Ok, InternalServerError } = require("../../utils/http-response");
+const { getRedis, setRedis } = require("../../utils/redis");
 
 module.exports = {
   GetUnitPegawai: async (req, res) => {
@@ -14,37 +15,35 @@ module.exports = {
         token: token.data.data.token,
       });
 
-      return Ok(res, result.data.data, "Successfull to fetch all unit");
+      return Ok(res, result.data.data, "Successful to fetch all unit");
     } catch (error) {
       return InternalServerError(res, error, "Failed to fetch all unit");
     }
   },
   GetPegawai: async (req, res) => {
     try {
-      const { unit } = req.query;
+      const responseRedis = await getRedis(`clo_polibatam_pegawai`);
 
-      const token = await FetchPolibatam({
-        act: "GetToken",
-        secretkey: req.secretkey,
-      });
+      let result = [];
+      if (responseRedis) {
+        result = JSON.parse(responseRedis);
+      } else {
+        const token = await FetchPolibatam({
+          act: "GetToken",
+          secretkey: req.secretkey,
+        });
 
-      const result = await FetchPolibatam({
-        act: "GetSemuaPegawai",
-        token: token.data.data.token,
-        filter: `unit=${unit}`,
-      });
+        const responsePolibatam = await FetchPolibatam({
+          act: "GetSemuaPegawai",
+          token: token.data.data.token,
+        });
 
-      let data = result.data.data;
-      // for (const iterator of result.data.data) {
-      //   let isAdmin = iterator.NIP ? await FetchIsAdmin(iterator.NIP) : false;
+        await setRedis(`clo_polibatam_pegawai`, JSON.stringify(responsePolibatam.data.data));
 
-      //   data.push({
-      //     ...iterator,
-      //     isAdmin: isAdmin ? true : false,
-      //   });
-      // }
+        result = responsePolibatam.data.data;
+      }
 
-      return Ok(res, data, "Successfull to fetch all pegawai");
+      return Ok(res, result, "Successful to fetch all pegawai");
     } catch (error) {
       return InternalServerError(res, error, "Failed to fetch all pegawai");
     }
@@ -62,7 +61,7 @@ module.exports = {
         filter: `nip=${req.params.nip}`,
       });
 
-      return Ok(res, result.data.data[0], "Successfull to fetch pegawai by NIP");
+      return Ok(res, result.data.data[0], "Successful to fetch pegawai by NIP");
     } catch (error) {
       return InternalServerError(res, error, "Failed to fetch pegawai by NIP");
     }
