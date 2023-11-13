@@ -1,6 +1,7 @@
 const { FetchPolibatam } = require("../../utils/fetch-polibatam");
 const { Ok, InternalServerError } = require("../../utils/http-response");
 const { getRedis, setRedis } = require("../../utils/redis");
+const { StoreUser, FetchUser } = require("./user-management.Repository");
 
 module.exports = {
   GetUnitPegawai: async (req, res) => {
@@ -43,6 +44,15 @@ module.exports = {
         result = responsePolibatam.data.data;
       }
 
+      const list_admin = await FetchUser();
+      result = result.map((item) => {
+        const user = list_admin.find((admin) => admin.uid === item.NIP);
+        return {
+          ...item,
+          is_admin: user ? true : false,
+        };
+      });
+
       return Ok(res, result, "Successful to fetch all pegawai");
     } catch (error) {
       return InternalServerError(res, error, "Failed to fetch all pegawai");
@@ -64,6 +74,17 @@ module.exports = {
       return Ok(res, result.data.data[0], "Successful to fetch pegawai by NIP");
     } catch (error) {
       return InternalServerError(res, error, "Failed to fetch pegawai by NIP");
+    }
+  },
+  CreatePegawaiAdmin: async (req, res) => {
+    try {
+      const { nip } = req.params;
+
+      await StoreUser(nip);
+
+      return Ok(res, null, "Successful to create pegawai admin");
+    } catch (error) {
+      return InternalServerError(res, error, "Failed to create pegawai admin");
     }
   },
 };
