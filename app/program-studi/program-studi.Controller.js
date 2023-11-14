@@ -17,6 +17,20 @@ module.exports = {
       return InternalServerError(res, error, "Failed to get program studi");
     }
   },
+  GetProgramStudiList: async (req, res) => {
+    try {
+      const result = await FetchProgramStudi();
+
+      const data = [];
+      for (const iterator of result) {
+        if (iterator._count.rubrik > 0) data.push(iterator);
+      }
+
+      return Ok(res, data, "Successfully get program studi");
+    } catch (error) {
+      return InternalServerError(res, error, "Failed to get program studi");
+    }
+  },
   GetProgramStudiById: async (req, res) => {
     try {
       const { id } = req.params;

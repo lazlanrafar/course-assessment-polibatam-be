@@ -47,9 +47,11 @@ module.exports = {
 
       result.course_learning_outcome.forEach((clo) => {
         clo.details.forEach((detail) => {
-          detail.rubrik.label = `${detail.rubrik.cdio_syllabus.level}/${detail.rubrik.student_outcome.code}-${detail.rubrik.code}`;
-          detail.rubrik.student_outcome = detail.rubrik.student_outcome.code;
-          detail.rubrik.cdio_syllabus = detail.rubrik.cdio_syllabus.level;
+          if (detail.rubrik) {
+            detail.rubrik.label = `${detail.rubrik.cdio_syllabus.level}/${detail.rubrik.student_outcome.code}-${detail.rubrik.code}`;
+            detail.rubrik.student_outcome = detail.rubrik.student_outcome.code;
+            detail.rubrik.cdio_syllabus = detail.rubrik.cdio_syllabus.level;
+          }
         });
       });
 
