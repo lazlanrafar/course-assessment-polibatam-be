@@ -95,11 +95,11 @@ model tbm_cdio_syllabus_parent {
 
 model tbm_cdio_syllabus {
   id                      String                    @id @default(uuid())
+  id_cdio_syllabus_parent String?
   level                   Decimal?                  @db.Decimal(2, 1)
   title                   String?                   @default("")
   created_at              DateTime?                 @default(now())
   updated_at              DateTime?                 @updatedAt
-  id_cdio_syllabus_parent String?
   cdio_syllabus_parent    tbm_cdio_syllabus_parent? @relation(fields: [id_cdio_syllabus_parent], references: [id])
   rubrik                  tbm_rubrik[]
 }
