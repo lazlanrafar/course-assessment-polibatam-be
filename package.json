@@ -7,7 +7,11 @@
     "dev": "nodemon app.js",
     "studio": "npx prisma studio",
     "db-push": "npx prisma db push && npx prisma generate",
-    "db-pull": "npx prisma db pull && npx prisma generate"
+    "db-pull": "npx prisma db pull && npx prisma generate",
+    "db-seed": "npx prisma db seed"
+  },
+  "prisma": {
+    "seed": "node prisma/seed.js"
   },
   "dependencies": {
     "@prisma/client": "^4.8.0",
