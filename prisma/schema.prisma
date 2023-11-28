@@ -10,12 +10,43 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// ====================================================
+// DATA UTILITY
+// ====================================================
+
 model tbm_user {
   uid String @unique
 }
 
+model tbm_grading_category {
+  id         String        @id @default(uuid())
+  title      String?       @default("")
+  created_at DateTime?     @default(now())
+  updated_at DateTime?     @updatedAt
+  grading    tbm_grading[]
+}
+
+model tbm_grading {
+  id                  String                @id @default(uuid())
+  id_grading_category String?
+  lower_limit         Int?                  @default(0)
+  upper_limit         Int?                  @default(0)
+  grade               String?               @default("")
+  grading_category    tbm_grading_category? @relation(fields: [id_grading_category], references: [id])
+  created_at          DateTime?             @default(now())
+  updated_at          DateTime?             @updatedAt
+}
+
+model tbm_assessment_type {
+  id         String    @id @default(uuid())
+  code       String?   @default("")
+  title      String?   @default("")
+  created_at DateTime? @default(now())
+  updated_at DateTime? @updatedAt
+}
+
 // ====================================================
-// DATA SETUP
+// DATA PROGRAM STUDI
 // ====================================================
 
 model tbm_jurusan {
@@ -37,6 +68,10 @@ model tbm_program_studi {
   course          tbl_course[]
   student_outcome tbm_student_outcome[]
 }
+
+// ====================================================
+// DATA SETUP
+// ====================================================
 
 model tbm_student_outcome {
   id               String             @id @default(uuid())
@@ -69,25 +104,6 @@ model tbm_cdio_syllabus {
   rubrik                  tbm_rubrik[]
 }
 
-model tbm_grading_category {
-  id         String        @id @default(uuid())
-  title      String?       @default("")
-  created_at DateTime?     @default(now())
-  updated_at DateTime?     @updatedAt
-  grading    tbm_grading[]
-}
-
-model tbm_grading {
-  id                  String                @id @default(uuid())
-  id_grading_category String?
-  lower_limit         Int?                  @default(0)
-  upper_limit         Int?                  @default(0)
-  grade               String?               @default("")
-  grading_category    tbm_grading_category? @relation(fields: [id_grading_category], references: [id])
-  created_at          DateTime?             @default(now())
-  updated_at          DateTime?             @updatedAt
-}
-
 model tbm_proficiency_level {
   id          String                         @id @default(uuid())
   level       Int
@@ -116,14 +132,6 @@ model tbm_assessment_method {
   created_at              DateTime?                     @default(now())
   updated_at              DateTime?                     @updatedAt
   course_learning_outcome tbl_course_learning_outcome[]
-}
-
-model tbm_assessment_type {
-  id         String    @id @default(uuid())
-  code       String?   @default("")
-  title      String?   @default("")
-  created_at DateTime? @default(now())
-  updated_at DateTime? @updatedAt
 }
 
 model tbm_rubrik {
