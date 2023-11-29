@@ -8,4 +8,4 @@ const sendProgramStudi = require("./seeds/seed-program-studi");
 // sendAssessmentTypes();
 // sendProgramStudi();
 // sendAssessmentMethods();
-sendCdioSyllabus();
+// sendCdioSyllabus();

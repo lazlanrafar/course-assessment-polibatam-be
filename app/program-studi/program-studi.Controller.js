@@ -1,7 +1,6 @@
 const { InternalServerError, Ok } = require("../../utils/http-response");
 const {
   FetchProgramStudi,
-  FetchJurusan,
   StoreProgramStudi,
   FetchProgramStudiById,
   UpdateProgramStudi,
@@ -38,7 +37,11 @@ module.exports = {
 
       return Ok(res, result, "Successfully get program studi detail");
     } catch (error) {
-      return InternalServerError(res, error, "Failed to get program studi detail");
+      return InternalServerError(
+        res,
+        error,
+        "Failed to get program studi detail"
+      );
     }
   },
   CreateProgramStudi: async (req, res) => {
