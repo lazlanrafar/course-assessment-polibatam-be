@@ -4,8 +4,8 @@ const redisHost = process.env.REDIS_HOST;
 const redisPort = process.env.REDIS_PORT;
 
 const client = redis.createClient({
-  host: redisHost,
-  port: redisPort,
+  host: redisHost || "localhost",
+  port: redisPort || 63791,
 });
 
 module.exports = {
