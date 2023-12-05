@@ -4,8 +4,8 @@ const sendCdioSyllabus = require("./seeds/seed-cdio-syllabus");
 const sendGrading = require("./seeds/seed-grading");
 const sendProgramStudi = require("./seeds/seed-program-studi");
 
-// sendGrading();
-// sendAssessmentTypes();
-// sendProgramStudi();
-// sendAssessmentMethods();
-// sendCdioSyllabus();
+sendGrading();
+sendAssessmentTypes();
+sendProgramStudi();
+sendAssessmentMethods();
+sendCdioSyllabus();
