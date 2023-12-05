@@ -1,7 +1,13 @@
 const { FetchPolibatam } = require("../../utils/fetch-polibatam");
-const { BadRequest, Ok, InternalServerError } = require("../../utils/http-response");
+const {
+  BadRequest,
+  Ok,
+  InternalServerError,
+} = require("../../utils/http-response");
 const { EncryptToken } = require("../../utils/jwt");
-const { FetchUserIsAdminByNIP } = require("../user-management/user-management.Repository");
+const {
+  FetchUserIsAdminByNIP,
+} = require("../user-management/user-management.Repository");
 
 module.exports = {
   Login: async (req, res) => {
@@ -17,11 +23,13 @@ module.exports = {
       if (resLogin.data.error_code === 102) {
         return BadRequest(res, {}, resLogin.data.error_desc);
       }
-
       const result = await FetchPolibatam({
         act: "GetBiodata",
         secretkey: resLogin.data.data.secretkey,
       });
+
+      if (result.data.data.role === "Mahasiswa")
+        return BadRequest(res, {}, "Mahasiswa cannot login");
 
       const token = EncryptToken({
         secretkey: resLogin.data.data.secretkey,

@@ -1,8 +1,8 @@
-DATABASE_URL="postgresql://postgres:postgres@localhost:5432/db-clo-polibatam?schema=public"
+DATABASE_URL="postgresql://postgres:postgres@localhost:54321/db-clo-polibatam?schema=public"
 API_POLIBATAM_URL="https://sid.polibatam.ac.id/api/v1.php"
 
 REDIS_HOST=localhost
-REDIS_PORT=6379
+REDIS_PORT=63791
 
 API_PORT=1000
 API_VERSION=v1

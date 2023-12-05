@@ -19,7 +19,7 @@ require("./routes")(app);
 
 const port = process.env.API_PORT || 3000;
 app.listen(port, () => {
-  console.log(`listening on port ${port}`);
+  console.log(`listening on port http://localhost:${port}`);
 });
 
 module.exports = app;

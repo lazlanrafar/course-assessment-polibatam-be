@@ -5,7 +5,7 @@ services:
     image: postgres
     container_name: clo-polibatam-postgres
     ports:
-      - "5432:5432"
+      - "54321:5432"
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -16,7 +16,7 @@ services:
     image: redis
     container_name: clo-polibatam-redis
     ports:
-      - "6379:6379"
+      - "63791:6379"
     volumes:
       - data_redis:/data
 

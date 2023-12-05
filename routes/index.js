@@ -23,7 +23,7 @@ const userManagementRoute = require("../app/user-management/user-management.Rout
 
 module.exports = function (app) {
   const apiVersion = process.env.API_VERSION || "v1";
-  const preRoute = `/api/${apiVersion}`;
+  const preRoute = `/${apiVersion}`;
 
   app.use(`${preRoute}/`, authRoute);
 
